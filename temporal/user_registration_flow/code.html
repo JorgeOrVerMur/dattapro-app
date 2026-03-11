@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0ea5e9", // Adjusted to a cyan-blue for the brand identity
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #22d3ee 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex min-h-screen flex-col lg:flex-row">
+<!-- Sidebar Navigation & Branding -->
+<aside class="w-full lg:w-[400px] bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-8 flex flex-col justify-between">
+<div class="flex flex-col gap-10">
+<!-- Logo -->
+<div class="flex items-center gap-3">
+<div class="size-10 gradient-bg rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">hub</span>
+</div>
+<h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">dattapro</h2>
+</div>
+<!-- Progress Steps -->
+<nav class="flex flex-col gap-6">
+<div class="flex items-center gap-4 group">
+<div class="size-10 flex items-center justify-center rounded-full bg-primary text-white font-bold">1</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-primary">Step 1</span>
+<span class="text-base font-medium text-slate-900 dark:text-slate-200">Basic Information</span>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-50">
+<div class="size-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-500 font-bold">2</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-500">Step 2</span>
+<span class="text-base font-medium text-slate-700 dark:text-slate-400">Academic Background</span>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-50">
+<div class="size-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-500 font-bold">3</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-500">Step 3</span>
+<span class="text-base font-medium text-slate-700 dark:text-slate-400">Research &amp; Skills</span>
+</div>
+</div>
+</nav>
+</div>
+<!-- Sidebar Footer Card -->
+<div class="mt-12 p-6 rounded-xl gradient-bg text-white relative overflow-hidden">
+<div class="relative z-10">
+<p class="font-bold text-lg mb-2">Join 10k+ Researchers</p>
+<p class="text-sm opacity-90 leading-relaxed text-blue-50">Collaborate with peers worldwide on cutting-edge scientific projects.</p>
+</div>
+<div class="absolute -bottom-4 -right-4 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-[120px]">biotech</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col items-center justify-start py-12 px-6 lg:px-20">
+<div class="max-w-2xl w-full">
+<!-- Header -->
+<div class="mb-10">
+<h1 class="text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-3">Create your account</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg">Start your journey into the global researcher network.</p>
+</div>
+<!-- Progress Bar -->
+<div class="mb-12">
+<div class="flex justify-between items-end mb-2">
+<span class="text-sm font-bold text-primary">33% Completed</span>
+<span class="text-xs text-slate-400">Next: Academic Background</span>
+</div>
+<div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 33.33%"></div>
+</div>
+</div>
+<!-- Form Section -->
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-8 shadow-sm">
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">First Name</label>
+<input class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="e.g. Marie" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Last Name</label>
+<input class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="e.g. Curie" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">mail</span>
+<input class="w-full pl-11 pr-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="name@university.edu" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">lock</span>
+<input class="w-full pl-11 pr-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="Create a strong password" type="password"/>
+</div>
+<p class="text-xs text-slate-400">At least 8 characters, including numbers and symbols.</p>
+</div>
+<div class="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+<p class="text-sm text-slate-500">Already have an account? <a class="text-primary font-semibold" href="#">Sign in</a></p>
+<button class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg transition-all flex items-center gap-2" type="button">
+                                Next Step
+                                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Helper Illustration / Visual -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex flex-col items-center text-center p-4">
+<div class="size-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<h4 class="text-sm font-bold mb-1">Secure Network</h4>
+<p class="text-xs text-slate-500">Verified identity for all active researchers.</p>
+</div>
+<div class="flex flex-col items-center text-center p-4">
+<div class="size-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<h4 class="text-sm font-bold mb-1">Collaboration</h4>
+<p class="text-xs text-slate-500">Easily find partners for cross-disciplinary studies.</p>
+</div>
+<div class="flex flex-col items-center text-center p-4">
+<div class="size-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined">public</span>
+</div>
+<h4 class="text-sm font-bold mb-1">Global Reach</h4>
+<p class="text-xs text-slate-500">Access datasets and labs across 150+ countries.</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Hidden placeholders for required image tags with data-alt -->
+<img class="hidden" data-alt="Researcher avatar placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZdDMwmfv9I_iEWKZPHqDja8RX77XzWaLQ2RUaGjesQXauVgr_3ACT1xCSCAfzeuf00EMV6RTqVesSCdCUxVP1Luvedp9PwW_qYKFpvYSkcdfD_zeGJPUJPuvqgPeEL97EGEojTu1FC9rkskAX944vmaLSAyYfBGo7JnAG8kdPWXKEe4c1B6VbdhbBW2sQQmbN5bZjLG2tQMhMuibe6mWOoCfPrliPY8UbpUYwE0hPjh239jzAXi0i2BQhXcUmazqmJhKxDlM7kK0"/>
+<div class="hidden" data-alt="Clean abstract pattern background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9-gBkndGtYW8pzTWQeIfqWAPnaGlTJsQk-TVZE4yiA-iOcxlUAcTmjgujadbiBs0bb2PCVxwOOmMIns_KiZxN9WMHkZdgVUvoJ1_JVmnkNdyAH_i6AYA5lQjhnuDkXFmg3XbBezoGSyF0HIEj2U_r6IrMjkrH5Qp8ows7WK0N32CjeImfGj36BQKt9V3Rl53irxol1gutQYjQfuCzuHomPzOo1DMsbiwFWMtl6HDMSTSSqAacrQTq9tl6DhtZoi-2D6D9gLlNQcQ')"></div>
+</body></html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>dattapro - Investigator Profile Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 md:px-10 py-3 bg-white dark:bg-slate-900 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">biotech</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-[-0.015em]">dattapro</h2>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden border border-primary/20">
+<div class="text-primary flex bg-primary/5 items-center justify-center pl-4">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-primary/5 focus:ring-0 h-full placeholder:text-slate-400 px-4 text-sm" placeholder="Quick search..." value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="Investigator profile picture placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCm5obsf4IhMTLXT_j4dZHdrqMPljjIZTMBvOZfrddHS0mkQRGC_GHk3BR0etKkcyE35syATf_pV9D4SmTZ3NxfQDUHbx9Ddh1WZgyGydZwB9rpoUxibxGocdnY_BVeyP9dkZHsWjY1NB9oetpxDlZzK1iOyeIPM2mG1qx_ZaXeMt-D5nRoTB4g6ToKxACfJaDbw6kAMviNLYbsE_t1afti6Im3a3Xdpeo1Ip21Y_n2FaKPJxfhsrJHxVge658T5g6bKvEYkPTETO0");'></div>
+</div>
+</header>
+<div class="flex flex-1 flex-col md:flex-row max-w-[1440px] mx-auto w-full">
+<aside class="w-full md:w-64 shrink-0 p-6 border-r border-primary/10 flex flex-col gap-6">
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Investigator Pro</h1>
+<p class="text-primary text-xs font-semibold uppercase tracking-wider">Premium Access</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">science</span>
+<span class="text-sm font-medium">Research Projects</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Publications</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Network</span>
+</a>
+<div class="h-px bg-primary/10 my-2"></div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white shadow-lg shadow-primary/25" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto bg-primary/5 p-4 rounded-xl border border-primary/10">
+<p class="text-xs font-bold text-primary mb-1">STORAGE LIMIT</p>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[75%]"></div>
+</div>
+<p class="text-[10px] text-slate-500 mt-2">15.2 GB of 20 GB used</p>
+</div>
+</aside>
+<main class="flex-1 p-6 md:p-10">
+<div class="max-w-4xl">
+<div class="mb-8">
+<h2 class="text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Edit Profile</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Manage your professional identity and credentials across the datta network.</p>
+</div>
+<div class="space-y-12">
+<section>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">person</span>
+<h3 class="text-xl font-bold">Personal Details</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">First Name</label>
+<input class="rounded-lg border-primary/20 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary h-11 px-4 text-sm" type="text" value="Julian"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Last Name</label>
+<input class="rounded-lg border-primary/20 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary h-11 px-4 text-sm" type="text" value="Vanguard"/>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Professional Bio</label>
+<textarea class="rounded-lg border-primary/20 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary p-4 text-sm" rows="3">Lead Investigator focusing on computational thermodynamics and advanced fluid dynamics. Over 15 years of experience in cross-border laboratory collaboration.</textarea>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">school</span>
+<h3 class="text-xl font-bold">Academic Certifications</h3>
+</div>
+<button class="text-sm font-bold text-primary flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">add</span> Add New
+                                    </button>
+</div>
+<div class="space-y-4">
+<div class="p-4 rounded-xl border border-primary/10 bg-primary/5 flex items-start justify-between">
+<div class="flex gap-4">
+<div class="size-12 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center text-primary border border-primary/10 shadow-sm">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-100">PhD in Computational Physics</h4>
+<p class="text-sm text-slate-500">Stanford University • 2014</p>
+</div>
+</div>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="p-4 rounded-xl border border-primary/10 bg-primary/5 flex items-start justify-between">
+<div class="flex gap-4">
+<div class="size-12 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center text-primary border border-primary/10 shadow-sm">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Post-Doctoral Fellowship</h4>
+<p class="text-sm text-slate-500">CERN Research Labs • 2016</p>
+</div>
+</div>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<h3 class="text-xl font-bold">Technical Competencies</h3>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-primary text-white rounded-full text-sm font-medium flex items-center gap-1">
+                                            Python <button class="material-symbols-outlined text-xs">close</button>
+</span>
+<span class="px-3 py-1 bg-primary text-white rounded-full text-sm font-medium flex items-center gap-1">
+                                            TensorFlow <button class="material-symbols-outlined text-xs">close</button>
+</span>
+<span class="px-3 py-1 bg-primary text-white rounded-full text-sm font-medium flex items-center gap-1">
+                                            Molecular Dynamics <button class="material-symbols-outlined text-xs">close</button>
+</span>
+<span class="px-3 py-1 bg-primary text-white rounded-full text-sm font-medium flex items-center gap-1">
+                                            R-Project <button class="material-symbols-outlined text-xs">close</button>
+</span>
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/30 rounded-full text-sm font-medium cursor-pointer hover:bg-primary/20">
+                                            + Add Competency
+                                        </span>
+</div>
+<p class="text-xs text-slate-400 italic">Separate technical skills with commas. These help in matching your profile with relevant research grants.</p>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">hub</span>
+<h3 class="text-xl font-bold">Research Center Affiliations</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<label class="flex items-center gap-3 p-4 rounded-xl border border-primary/20 bg-white dark:bg-slate-800 cursor-pointer hover:bg-primary/5 transition-colors">
+<input checked="" class="form-checkbox text-primary rounded border-primary/30 focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-sm">International Lab of Fluidics</p>
+<p class="text-xs text-slate-500">Lead Affiliate</p>
+</div>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 cursor-pointer hover:bg-primary/5 transition-colors">
+<input class="form-checkbox text-primary rounded border-primary/30 focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-sm">Global AI Ethics Board</p>
+<p class="text-xs text-slate-500">Board Member</p>
+</div>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-primary/20 bg-white dark:bg-slate-800 cursor-pointer hover:bg-primary/5 transition-colors">
+<input checked="" class="form-checkbox text-primary rounded border-primary/30 focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-sm">Zurich Quantum Institute</p>
+<p class="text-xs text-slate-500">Guest Researcher</p>
+</div>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 cursor-pointer hover:bg-primary/5 transition-colors">
+<input class="form-checkbox text-primary rounded border-primary/30 focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-sm">NASA Propulsion Lab</p>
+<p class="text-xs text-slate-500">External Consultant</p>
+</div>
+</label>
+</div>
+</section>
+<div class="pt-8 border-t border-primary/10 flex justify-end gap-4">
+<button class="px-6 py-2.5 rounded-lg font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Cancel</button>
+<button class="px-8 py-2.5 rounded-lg font-bold text-white bg-gradient-to-r from-primary to-[#ff8c52] shadow-lg shadow-primary/30 hover:shadow-xl transition-all">Save Changes</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</body></html>

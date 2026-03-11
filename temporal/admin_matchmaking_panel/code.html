@@ -1,0 +1,245 @@
+<html><head><meta charset="utf-8"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#ec5b13",
+          "background-light": "#f8f6f6",
+          "background-dark": "#221610",
+        },
+        fontFamily: {
+          "display": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+</head><body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col fixed h-full">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-xl font-bold tracking-tight">dattapro</h1>
+<p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Admin Panel</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm font-semibold">Convocatorias</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-sm font-semibold">Researchers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined">join_inner</span>
+<span class="text-sm font-bold">Matchmaking</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-semibold">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2">
+<img alt="Profile" class="size-10 rounded-full object-cover" data-alt="Admin user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-GFXZrjQHKHhCe9RdZPrLMgW66hjZFLFo_nLGD1Mpd8nllRKSB4WkigBMDgToUJg0NhoQlj7wSKAvnMQKZHxrtdrSK3MMUmk5ZbWdeigaLWCAFSfQMI-FIDDlXfCV-Q7rCmFGsfXkml0BmhNLK43y_FjMAaZJ5olJyFyjz2i7haWM0C13FVsoDJvN6-J9oAhyIJ6IymDEaeKyHFPZErxlqdI9fVaRG6DubbgmS_-7sm3TYkrDepiDrMVWDNGo0uJ7SFiilRx1uPQ"/>
+<div class="flex flex-col min-w-0">
+<p class="text-sm font-bold truncate">Alex Rivera</p>
+<p class="text-xs text-slate-500 truncate">System Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 p-8">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Researcher Matchmaking</h2>
+<p class="text-slate-500 mt-1">AI-driven ranking system for open convocatoria fulfillment.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 hover:bg-slate-50">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="bg-primary text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined">add</span>
+          New Analysis
+        </button>
+</div>
+</header>
+<!-- Convocatoria Selector Section -->
+<section class="mb-10">
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+<div class="flex flex-col md:flex-row gap-6 items-end">
+<div class="flex-1 w-full">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">1. Select Convocatoria</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<select class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary text-slate-900 dark:text-white font-medium">
+<option>Select an active project...</option>
+<option selected="">Quantum Computing Materials Research Grant 2024</option>
+<option>Renewable Energy Infrastructure Development</option>
+<option>Advanced Genomic Data Analysis - Public Health</option>
+</select>
+</div>
+</div>
+<div class="shrink-0 w-full md:w-auto">
+<button class="w-full bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-6 py-3 rounded-lg font-bold hover:bg-slate-800 transition-colors">
+              Refresh Ranking
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Data Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Ranking List -->
+<div class="lg:col-span-2 space-y-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">leaderboard</span>
+            Viable Researchers
+          </h3>
+<span class="text-xs font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500 uppercase">12 Matches Found</span>
+</div>
+<!-- Researcher Row 1 -->
+<div class="bg-white dark:bg-slate-900 border-2 border-primary/10 rounded-xl p-5 shadow-sm hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex flex-wrap md:flex-nowrap items-center gap-6">
+<div class="relative shrink-0">
+<img alt="Researcher" class="size-16 rounded-xl object-cover" data-alt="Portrait of a female researcher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Mp60jvKluj2jr13ptvSkm9QNtK2nCgO57Z_Q56Wx-QvYPJQalWxbUiRBpWqpODzuzJbwxS9w_G0qp3kA4xZakjdhXadyfLGwuVgOFAcpJ4S1TR9cjqhVYyn5ik7vjH4-191geZuEuMJb8zd2L0fTXE2aqg5uYEFMBlHA0-cdroXkYZIz2yMK4r4ff9y_wFGBB5p6W4ptUQ0VVFeMOM1qW8sdvzmFdH_Yd3qucA2wlfPwpOex9yxAfHaI3i0ZZ9dlma-EnDEPDs0"/>
+<div class="absolute -bottom-1 -right-1 bg-green-500 size-4 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<h4 class="font-bold text-lg text-slate-900 dark:text-white truncate">Dr. Elena Rodriguez</h4>
+<span class="text-[10px] font-black px-1.5 py-0.5 rounded bg-primary text-white uppercase tracking-tighter">Top Match</span>
+</div>
+<p class="text-slate-500 text-sm mb-3">PhD in Solid State Physics • 12 Years Experience</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Quantum Theory</span>
+<span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Materials Science</span>
+<span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Python</span>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary/5 dark:bg-primary/10 rounded-xl p-4 min-w-[100px]">
+<span class="text-3xl font-black text-primary">94<span class="text-base">%</span></span>
+<span class="text-[10px] font-bold text-primary/70 uppercase">Match Score</span>
+</div>
+</div>
+</div>
+<!-- Researcher Row 2 -->
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm hover:border-primary/40 transition-all cursor-pointer">
+<div class="flex flex-wrap md:flex-nowrap items-center gap-6">
+<div class="relative shrink-0">
+<img alt="Researcher" class="size-16 rounded-xl object-cover" data-alt="Portrait of a male researcher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_RGXCaBGYswQdOjyx8LXOiYNDRvlsiGhbGK87YRaW6LT6hPPo_5vFojCUcshTeXZSsbR7jXZswJZ2Ovy9QtLsgrgvZ5JlmpWQi4z9fh3EFlAJJsOTwNe1rQ8wuNogcEz4xS41rM8SJUrhv9XTHWDO7pgpDJniIJ5glavPYQZdKLSUDQSlLrH07Z-Am9Q1FAt8rmSIjQV-05f9MvWwJySnZnj_8N0Mgs-fb9vzJBmCFkZvVjo7iGMDpXODBUfqCvq7y2LL6tXi9BA"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-lg text-slate-900 dark:text-white truncate mb-1">Marcus Thorne</h4>
+<p class="text-slate-500 text-sm mb-3">MSc Materials Engineering • 8 Years Experience</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Crystallography</span>
+<span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Nano-Fab</span>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-xl p-4 min-w-[100px]">
+<span class="text-3xl font-black text-slate-700 dark:text-slate-300">88<span class="text-base">%</span></span>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Match Score</span>
+</div>
+</div>
+</div>
+<!-- Researcher Row 3 -->
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm hover:border-primary/40 transition-all cursor-pointer">
+<div class="flex flex-wrap md:flex-nowrap items-center gap-6">
+<div class="relative shrink-0">
+<img alt="Researcher" class="size-16 rounded-xl object-cover" data-alt="Portrait of a female researcher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaD5aUCvuAjQ2YZOzWnAV9ylcKwOM3aFBiekLAisZtqmv8HWHqxG8r12E4efErTWDSyMlmz8esPbo1zxhzRKY0hWLpWFPK8RmisGibaXy0HsNJOVfLiURnNbrVvo8s8jeOhso_qPFP3kUEPVbuGimNFhSlSim_SmduFjUnwEufjX6ZK_TFQJAJ1xsn6RtLGfka5h-zcCG80M68HIqFLHgyDexSEVNjjXN8s8CfUCnSvqnByRHzB-ZVQzQ7OriuvsvkOCbOn-74IVQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-lg text-slate-900 dark:text-white truncate mb-1">Dr. Sarah Jenkins</h4>
+<p class="text-slate-500 text-sm mb-3">Post-Doc Quantum Informatics • 5 Years Experience</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Algorithms</span>
+<span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Simulation</span>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-xl p-4 min-w-[100px]">
+<span class="text-3xl font-black text-slate-700 dark:text-slate-300">82<span class="text-base">%</span></span>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Match Score</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Match Comparison Panel -->
+<div class="space-y-6">
+<h3 class="text-xl font-bold flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">biotech</span>
+          In-Depth Analysis
+        </h3>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm sticky top-8">
+<div class="text-center mb-6">
+<h4 class="font-bold text-slate-900 dark:text-white">Profile Match: Elena Rodriguez</h4>
+<p class="text-xs text-slate-500">Vs. Quantum Grant Requirements</p>
+</div>
+<!-- Radar Chart Visual Placeholder -->
+<div class="aspect-square relative flex items-center justify-center mb-8">
+<div class="absolute inset-0 border-2 border-slate-100 dark:border-slate-800 rounded-full"></div>
+<div class="absolute inset-4 border-2 border-slate-100 dark:border-slate-800 rounded-full"></div>
+<div class="absolute inset-8 border-2 border-slate-100 dark:border-slate-800 rounded-full"></div>
+<!-- Hexagonal axis lines -->
+<div class="absolute w-full h-px bg-slate-100 dark:bg-slate-800 rotate-0"></div>
+<div class="absolute w-full h-px bg-slate-100 dark:bg-slate-800 rotate-60"></div>
+<div class="absolute w-full h-px bg-slate-100 dark:bg-slate-800 rotate-120"></div>
+<!-- Custom Data Polygon Simulation -->
+<svg class="absolute inset-0 w-full h-full drop-shadow-xl" viewbox="0 0 100 100">
+<!-- Requirement Area (Light Gray) -->
+<polygon fill="rgba(236, 91, 19, 0.05)" points="50,10 85,30 85,70 50,90 15,70 15,30" stroke="#cbd5e1" stroke-width="0.5"></polygon>
+<!-- Researcher Area (Primary Orange) -->
+<polygon fill="rgba(236, 91, 19, 0.4)" points="50,15 80,35 78,75 50,85 20,65 25,32" stroke="#ec5b13" stroke-width="1.5"></polygon>
+</svg>
+<!-- Labels -->
+<span class="absolute top-0 text-[10px] font-black uppercase text-slate-400">Technical</span>
+<span class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 text-[10px] font-black uppercase text-slate-400 rotate-90">Experience</span>
+<span class="absolute bottom-0 text-[10px] font-black uppercase text-slate-400">Language</span>
+<span class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 text-[10px] font-black uppercase text-slate-400 -rotate-90">Leadership</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-slate-600 dark:text-slate-400">Technical Skill Gap</span>
+<span class="text-sm font-bold text-green-500">-2% (Exceeds)</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[98%]"></div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="text-sm font-medium text-slate-600 dark:text-slate-400">Years in Field</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">12 / 10 required</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-full"></div>
+</div>
+</div>
+<button class="w-full mt-8 bg-primary/10 border border-primary/20 text-primary py-3 rounded-lg font-bold hover:bg-primary/20 transition-all">
+            Generate Interview Link
+          </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

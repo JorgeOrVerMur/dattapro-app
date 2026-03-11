@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">hub</span>
+</div>
+<div class="flex flex-col">
+<h1 class="font-bold text-lg leading-tight">Dattapro</h1>
+<span class="text-xs text-slate-500 dark:text-slate-400">Red de Investigadores</span>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-medium">Inicio</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="text-sm font-medium">Networking</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">folder</span>
+<span class="text-sm font-medium">Proyectos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Publicaciones</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Configuración</span>
+</a>
+<div class="flex items-center gap-3 px-3 py-4 border-t border-slate-100 dark:border-slate-800 mt-2">
+<div class="h-8 w-8 rounded-full bg-slate-300 dark:bg-slate-700" data-alt="User profile avatar placeholder"></div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold truncate">Dr. Mario Silva</p>
+<p class="text-[10px] text-slate-500 truncate">Investigador Senior</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-8 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<h2 class="text-xl font-bold">Networking</h2>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-full bg-slate-200/50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:brightness-110 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                        Invitar Colega
+                    </button>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-8 py-6">
+<!-- Search and Filters Section -->
+<div class="space-y-6">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-white dark:bg-slate-900 border-none rounded-xl py-4 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400 text-base" placeholder="Buscar investigadores por área o competencia..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full text-sm font-medium hover:border-primary transition-colors">
+<span>Área de Conocimiento</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full text-sm font-medium hover:border-primary transition-colors">
+<span>Sede</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full text-sm font-medium hover:border-primary transition-colors">
+<span>Nivel de Formación</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<div class="h-6 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<button class="text-primary text-sm font-bold hover:underline">Limpiar filtros</button>
+</div>
+</div>
+<!-- Researcher Grid -->
+<div class="mt-10">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold">Investigadores sugeridos</h3>
+<p class="text-sm text-slate-500">142 resultados encontrados</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex items-start justify-between mb-4">
+<div class="relative">
+<div class="h-16 w-16 rounded-xl bg-slate-100 overflow-hidden" data-alt="Professional headshot of a female researcher">
+<div class="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">person</span>
+</div>
+</div>
+<span class="absolute -bottom-1 -right-1 h-4 w-4 bg-green-500 border-2 border-white dark:border-slate-900 rounded-full"></span>
+</div>
+<span class="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded">Destacado</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Dra. Elena Martínez</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">school</span>
+                                Ph.D. en Biotecnología • Sede Central
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[11px] font-medium">Genómica</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[11px] font-medium">Bioinformática</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[11px] font-medium">+2 áreas</span>
+</div>
+<button class="w-full py-2.5 border-2 border-primary text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all text-sm">
+                                Conectar
+                            </button>
+</div>
+<!-- Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex items-start justify-between mb-4">
+<div class="relative">
+<div class="h-16 w-16 rounded-xl bg-slate-100 overflow-hidden" data-alt="Professional headshot of a male researcher">
+<div class="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500 text-3xl">person</span>
+</div>
+</div>
+</div>
+<span class="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded">Nivel Experto</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Ing. Roberto Gómez</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                                M.Sc. Ciencia de Datos • Sede Norte
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[11px] font-medium">Machine Learning</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[11px] font-medium">Big Data</span>
+</div>
+<button class="w-full py-2.5 border-2 border-primary text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all text-sm">
+                                Conectar
+                            </button>
+</div>
+<!-- Card 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex items-start justify-between mb-4">
+<div class="relative">
+<div class="h-16 w-16 rounded-xl bg-slate-100 overflow-hidden" data-alt="Professional headshot of a researcher">
+<div class="w-full h-full bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary/60 text-3xl">person</span>
+</div>
+</div>
+</div>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Dra. Claudia Rivera</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">school</span>
+                                Ph.D. en Sociología • Sede Virtual
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[11px] font-medium">Estudios Urbanos</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[11px] font-medium">Políticas Públicas</span>
+</div>
+<button class="w-full py-2.5 border-2 border-primary text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all text-sm">
+                                Conectar
+                            </button>
+</div>
+<!-- Card 4 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex items-start justify-between mb-4">
+<div class="relative">
+<div class="h-16 w-16 rounded-xl bg-slate-100 overflow-hidden" data-alt="Professional headshot of a researcher">
+<div class="w-full h-full bg-gradient-to-br from-slate-200 to-slate-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-600 text-3xl">person</span>
+</div>
+</div>
+</div>
+<span class="bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded">Top Colaborador</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Dr. Juan Castro</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">school</span>
+                                Ph.D. Energía Renovable • Sede Sur
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[11px] font-medium">Solar</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[11px] font-medium">Hidrógeno</span>
+</div>
+<button class="w-full py-2.5 border-2 border-primary text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all text-sm">
+                                Conectar
+                            </button>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex items-center justify-center gap-2">
+<button class="p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="h-10 w-10 rounded-lg bg-primary text-white font-bold text-sm">1</button>
+<button class="h-10 w-10 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-medium text-sm hover:border-primary transition-colors">2</button>
+<button class="h-10 w-10 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-medium text-sm hover:border-primary transition-colors">3</button>
+<span class="px-2">...</span>
+<button class="h-10 w-10 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-medium text-sm hover:border-primary transition-colors">12</button>
+<button class="p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Right Mini-panel (Contextual Information) -->
+<aside class="w-80 border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hidden 2xl:flex flex-col p-6 overflow-y-auto">
+<h3 class="font-bold text-slate-900 dark:text-slate-100 mb-6">Próximos Webinars</h3>
+<div class="space-y-4">
+<div class="p-4 bg-background-light dark:bg-background-dark rounded-xl border border-slate-100 dark:border-slate-800">
+<p class="text-[10px] text-primary font-bold uppercase mb-1">Mañana • 10:00 AM</p>
+<h4 class="text-sm font-bold mb-2">IA en la Investigación Médica</h4>
+<p class="text-xs text-slate-500 line-clamp-2">Nuevas metodologías para el análisis de datos clínicos masivos.</p>
+</div>
+<div class="p-4 bg-background-light dark:bg-background-dark rounded-xl border border-slate-100 dark:border-slate-800">
+<p class="text-[10px] text-slate-500 font-bold uppercase mb-1">15 de Oct • 16:00 PM</p>
+<h4 class="text-sm font-bold mb-2">Ética y Transparencia</h4>
+<p class="text-xs text-slate-500 line-clamp-2">Panel sobre la integridad científica en la era digital.</p>
+</div>
+</div>
+<h3 class="font-bold text-slate-900 dark:text-slate-100 mt-10 mb-6">Tendencias en tu área</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between group cursor-pointer">
+<span class="text-xs font-medium group-hover:text-primary">#Nanotecnología</span>
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-500">2.4k posts</span>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<span class="text-xs font-medium group-hover:text-primary">#Sostenibilidad</span>
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-500">1.8k posts</span>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<span class="text-xs font-medium group-hover:text-primary">#QuantumComputing</span>
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-500">920 posts</span>
+</div>
+</div>
+<div class="mt-auto pt-10">
+<div class="bg-primary/10 rounded-xl p-6 text-center">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">rocket_launch</span>
+<h4 class="font-bold text-sm mb-2">Mejora tu Perfil</h4>
+<p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Añade tus últimas publicaciones para ser más visible.</p>
+<button class="text-xs font-bold text-primary hover:underline">Ir a mi perfil</button>
+</div>
+</div>
+</aside>
+</div>
+</body></html>

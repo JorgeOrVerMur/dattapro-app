@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "accent-blue": "#00d1ff",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col fixed h-full z-50">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-xl font-black tracking-tight text-slate-900 dark:text-white uppercase">dattapro</h1>
+<p class="text-xs font-semibold text-primary/80 uppercase tracking-widest leading-none">Explorer</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-sm font-medium">Convocatorias</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Mis Postulaciones</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-sm font-medium">Perfil</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Ajustes</span>
+</a>
+</div>
+</nav>
+<div class="p-4">
+<button class="w-full py-3 bg-primary text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>Nueva Búsqueda</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 flex-1">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">explore</span>
+<h2 class="text-lg font-bold">Explorador de Oportunidades</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary/50 text-sm w-64" placeholder="Buscar por entidad..." type="text"/>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-white dark:border-background-dark"></span>
+</button>
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-300 dark:border-slate-600">
+<img alt="User Profile" data-alt="User avatar profile picture circular" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACgPotT3H-lrZSymfHAJ3B-nnDK2vYGtDnQDiJ62-HeaBTf2LmwOigd68cOBxs68k0fZ4XpxYjLel3vPVp8drZjaUOb-1J_Fd_qcuYCnO_uaBzoG6fqUPCFqZZsRhEl3o8MRjMo1OUhBxNT3NeYnTCgwzKL3mGwlQvrRoGczxTigy_WnWkgXSmqUyGQlhhlsFsmKTgKHCklcZKUoIY7I8g68oEY-ndHbYWTedSey2vlrA8Na-xwh3igqUjYJhHaiGn7mRvI7egiSM"/>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Hero/Title -->
+<div class="mb-8">
+<h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2">Convocatorias Abiertas</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg">Descubre y aplica a las mejores oportunidades de financiación e innovación académica.</p>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3 mb-10">
+<div class="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-slate-500 text-[20px]">psychology</span>
+<span class="text-sm font-medium">Áreas de Conocimiento</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px]">expand_more</span>
+</div>
+<div class="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-slate-500 text-[20px]">payments</span>
+<span class="text-sm font-medium">Financiación</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px]">expand_more</span>
+</div>
+<div class="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-slate-500 text-[20px]">event_upcoming</span>
+<span class="text-sm font-medium">Fecha Límite</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px]">expand_more</span>
+</div>
+<div class="ml-auto flex items-center gap-2">
+<span class="text-sm text-slate-400 font-medium">Ordenar por:</span>
+<select class="bg-transparent border-none text-sm font-bold text-slate-700 dark:text-slate-200 focus:ring-0 cursor-pointer">
+<option>Más Relevantes</option>
+<option>Fecha de Cierre</option>
+<option>Mayor Monto</option>
+</select>
+</div>
+</div>
+<!-- Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-xl shadow-slate-200/50 dark:shadow-none hover:translate-y-[-4px] transition-all flex flex-col group">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Circuit board and futuristic digital background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1qVyJ_Bs3P83TtdABpsBT_0D7k2KTMVocVZXkMSkK-2-uyOQ7gFgPqb7KgvuqdQIjJYB090yZVg9iIpxgNEnob-GDYOsqpoek6fe9OtGZfjJJI0LFtI3WbKtOiD-VSXxdyuxVZGHLxCEMgOcMlpQpkbrxoNdqDGXwwrxfUnB15pLR3dESXUogP6HsBm3JAunFDA2ZQBN0I0o5XdGA_eU1v-GL2lWXn-VJyWnQ_UopWrXz2nPYYMz9t4YLsjTMM026uuiYsf-rbFc"/>
+<div class="absolute top-4 left-4">
+<span class="bg-accent-blue/90 text-slate-900 text-xs font-black px-3 py-1.5 rounded-full backdrop-blur-md flex items-center gap-1.5 shadow-lg">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                                    85% MATCH
+                                </span>
+</div>
+<div class="absolute top-4 right-4">
+<button class="bg-white/20 hover:bg-white/40 backdrop-blur-md p-1.5 rounded-full text-white transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-slate-900/60 backdrop-blur-md text-white text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded">MinCiencias</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 leading-tight">Convocatoria Nacional de Innovación 2024 - Tecnologías Emergentes</h3>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-[10px] font-bold px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20 uppercase tracking-tighter">Energías Renovables</span>
+<span class="text-[10px] font-bold px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20 uppercase tracking-tighter">IA &amp; ML</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4 mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">business_center</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Sector</p>
+<p class="text-xs font-semibold">Tecnología</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">language</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Idiomas</p>
+<p class="text-xs font-semibold">Español, Inglés</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">calendar_today</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Fecha Límite</p>
+<p class="text-xs font-semibold text-red-500">Oct 15, 2024</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">monetization_on</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Financiación</p>
+<p class="text-xs font-semibold text-green-600">$200M COP</p>
+</div>
+</div>
+</div>
+<div class="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-700">
+<button class="flex-1 py-2.5 bg-slate-900 dark:bg-white dark:text-slate-900 text-white rounded-xl text-sm font-bold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors">Ver Detalles</button>
+<button class="px-3 py-2.5 bg-primary/10 text-primary rounded-xl hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-xl shadow-slate-200/50 dark:shadow-none hover:translate-y-[-4px] transition-all flex flex-col group">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Laboratory research scientist working with glass test tubes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgBxHe-8xOuaPosCyl1bc7BzomR3sJLOVGYvFbN71DJov88B8dLLNQ-PtQDbw8NBjJb0YWEm1AtIn9wBgT3dcU9uuSjW6DNotWvHqPiLGzwhdsh9-JCzRbbzyi8Lg6eOQYonYbiVb-34nL4j1Sv3UW9m_RLGrmfdeyVM9bA2LQoe7raSytrIfuO4qDdtXdEPHMuNKa6AHBLS0MAR8GntfJE80ilzeac-O9-dIF2750uJOWC9lvTkQqcuW4IuIZCnsSeyeI4spHWZc"/>
+<div class="absolute top-4 left-4">
+<span class="bg-accent-blue/90 text-slate-900 text-xs font-black px-3 py-1.5 rounded-full backdrop-blur-md flex items-center gap-1.5 shadow-lg">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                                    92% MATCH
+                                </span>
+</div>
+<div class="absolute top-4 right-4">
+<button class="bg-white/20 hover:bg-white/40 backdrop-blur-md p-1.5 rounded-full text-white transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-slate-900/60 backdrop-blur-md text-white text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded">Erasmus+</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 leading-tight">Beca de Investigación Postdoctoral en Biotecnología Aplicada</h3>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-[10px] font-bold px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20 uppercase tracking-tighter">Biotecnología</span>
+<span class="text-[10px] font-bold px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20 uppercase tracking-tighter">Salud Humana</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4 mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">business_center</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Sector</p>
+<p class="text-xs font-semibold">Academia</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">language</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Idiomas</p>
+<p class="text-xs font-semibold">Inglés C1</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">calendar_today</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Fecha Límite</p>
+<p class="text-xs font-semibold">Nov 30, 2024</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">monetization_on</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Financiación</p>
+<p class="text-xs font-semibold text-green-600">Total Cover</p>
+</div>
+</div>
+</div>
+<div class="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-700">
+<button class="flex-1 py-2.5 bg-slate-900 dark:bg-white dark:text-slate-900 text-white rounded-xl text-sm font-bold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors">Ver Detalles</button>
+<button class="px-3 py-2.5 bg-primary/10 text-primary rounded-xl hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-xl shadow-slate-200/50 dark:shadow-none hover:translate-y-[-4px] transition-all flex flex-col group">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Satellite earth global connectivity networking concept" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpL-E2-kV8B86X6FBhidZz4v3HLG3Cx6fakEHlJXLbfJev-zuAXi5V8QiHHKsvsVRngp3aURtf4LiqoMgFWw73dr1byDrDEyNijaoxCqCFxkblA6Iud-yabFbdBdZ2mjK-zn3EGRBt4Ns_SedJH7o3oxmNP-bMFqumsruzW90UlCPEb6hh2WNvOcTnMyT3yCRc2_OeqCUBhNnRkGMMWHMr5SwvBdaFDLm9IEzPVY7BHRHFuI7EfWZNRWOJ-JktQ8jKfEGSJlLRoFA"/>
+<div class="absolute top-4 left-4">
+<span class="bg-accent-blue/90 text-slate-900 text-xs font-black px-3 py-1.5 rounded-full backdrop-blur-md flex items-center gap-1.5 shadow-lg">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                                    78% MATCH
+                                </span>
+</div>
+<div class="absolute top-4 right-4">
+<button class="bg-white/20 hover:bg-white/40 backdrop-blur-md p-1.5 rounded-full text-white transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-slate-900/60 backdrop-blur-md text-white text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded">NASA Space Apps</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 leading-tight">Desafío Global de Datos Espaciales para la Sostenibilidad</h3>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-[10px] font-bold px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20 uppercase tracking-tighter">Big Data</span>
+<span class="text-[10px] font-bold px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20 uppercase tracking-tighter">Sostenibilidad</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4 mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">business_center</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Sector</p>
+<p class="text-xs font-semibold">Gubernamental</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">language</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Idiomas</p>
+<p class="text-xs font-semibold">Inglés, Español</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">calendar_today</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Fecha Límite</p>
+<p class="text-xs font-semibold">Ene 12, 2025</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">monetization_on</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Financiación</p>
+<p class="text-xs font-semibold text-green-600">$50,000 USD</p>
+</div>
+</div>
+</div>
+<div class="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-700">
+<button class="flex-1 py-2.5 bg-slate-900 dark:bg-white dark:text-slate-900 text-white rounded-xl text-sm font-bold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors">Ver Detalles</button>
+<button class="px-3 py-2.5 bg-primary/10 text-primary rounded-xl hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

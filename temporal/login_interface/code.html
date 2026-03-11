@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>dattapro - Researcher Collaboration Network</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex min-h-screen">
+<!-- Left Section: Login Form -->
+<div class="flex flex-1 flex-col justify-center px-6 py-12 lg:px-24 bg-background-light dark:bg-background-dark">
+<div class="sm:mx-auto sm:w-full sm:max-w-md">
+<div class="flex items-center gap-3 mb-10">
+<div class="size-10 bg-primary/10 rounded-lg flex items-center justify-center">
+<img alt="dattapro logo" class="size-8" data-alt="dattapro professional logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFwlWl3QlY614t0t450v5195afReXje-gPsGcRsBn-J0jjwRg4wJfX_FHB099jtRDJtQzmCgYTpbPtJDDJtqW6vwJYzYcxN9Gj226tQ3xnn0drwzwqul09QKHeGltkTurPID-OK5qT1w7vo9mzv8xRiwdHRMeGZt7fM6AyLsFVpKjq3CIUQmWLwehA-CvT9PNdBOldKL8Dh0KLPXB6nTs1yP1Ynqe5vjKFIMnb6gsa6CAV8CC5xojnEx8sQp-bkRkf-zOg9vDBvEY"/>
+</div>
+<h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">dattapro</h2>
+</div>
+<h1 class="text-3xl font-black leading-tight tracking-tight text-slate-900 dark:text-slate-100">
+                Welcome back
+            </h1>
+<p class="mt-2 text-base text-slate-600 dark:text-slate-400">
+                Connect with researchers worldwide and accelerate your discoveries.
+            </p>
+</div>
+<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
+<form action="#" class="space-y-6" method="POST">
+<div>
+<label class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100" for="email">Email address</label>
+<div class="mt-2">
+<input autocomplete="email" class="block w-full rounded-xl border-0 py-3.5 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-white dark:bg-slate-800" id="email" name="email" placeholder="name@institution.edu" required="" type="email"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between">
+<label class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100" for="password">Password</label>
+<div class="text-sm">
+<a class="font-semibold text-primary hover:opacity-80" href="#">Forgot password?</a>
+</div>
+</div>
+<div class="mt-2 relative">
+<input autocomplete="current-password" class="block w-full rounded-xl border-0 py-3.5 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-white dark:bg-slate-800" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center">
+<input class="h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary" id="remember-me" name="remember-me" type="checkbox"/>
+<label class="ml-3 block text-sm leading-6 text-slate-600 dark:text-slate-400" for="remember-me">Keep me logged in</label>
+</div>
+<div>
+<button class="flex w-full justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-3 py-3.5 text-sm font-bold leading-6 text-white shadow-lg hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="submit">
+                        Sign in
+                    </button>
+</div>
+</form>
+<p class="mt-10 text-center text-sm text-slate-500">
+                Not a member yet?
+                <a class="font-semibold leading-6 text-primary hover:opacity-80" href="#">Start your free trial</a>
+</p>
+</div>
+<div class="mt-auto pt-10 text-center text-xs text-slate-400">
+            © 2024 dattapro Inc. Secure, encrypted research collaboration.
+        </div>
+</div>
+<!-- Right Section: Visual Illustration -->
+<div class="relative hidden w-0 flex-1 lg:block">
+<div class="absolute inset-0 h-full w-full object-cover bg-slate-100 dark:bg-slate-900 flex flex-col items-center justify-center p-12">
+<div class="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
+<img alt="Researcher in lab" class="absolute inset-0 h-full w-full object-cover" data-alt="Researcher working in a modern high-tech laboratory" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLYgSzmmNPojTMOlFwibKg12p88AfVfw3ji0WKVRZtPJyiROP3Fzd6BzKTvbc4YnYjdk4ank1_B11sUZqF_An7lNpTSOcdgxgvBJbqzEi1jwxxEsbryq3cFOfh5ysDBjOQfk-4KgwcnYmbhEgrCYH7oNglByIa5Uaz33maxZBBhQzDFzqADdzFHFkN8mhplWPX7-7zZESuWb80fcchBGqu1e1L4g5zWZuTwdRWM7GHPo6EDwhv5PUvd_0ChEv9D-EY16FJRAXhTXc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-12 left-12 right-12">
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
+<div class="flex gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-4xl">hub</span>
+</div>
+<h3 class="text-2xl font-bold text-white mb-2">Connecting Minds, Accelerating Science</h3>
+<p class="text-slate-200 text-lg">Join over 50,000 PhDs and researchers matching for cross-disciplinary projects every day.</p>
+<div class="mt-6 flex -space-x-2">
+<div class="size-10 rounded-full border-2 border-slate-800 bg-slate-300 overflow-hidden" data-alt="Profile avatar of a researcher">
+<img alt="avatar" data-alt="Avatar of a male researcher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu0Vp3sPQWRVOAA-G1Sj_DBOR_fC2hLzdjoP0mR7QoAqUcmd-QSv2PLmjepoF9yvzOZshKyfpWu-QBQUyUEeC3eWlAb_-WAAkRtLLTrRhV8HC4iErCUahJXvoG4TLZOOIjbIGkyjZsMfLFPJ1of_crIO88XBQM1BkUlcl7oaic9zs_EdrGUfBnvE5k9RlQrwVV0FXASxU3S_rwLSlVcbR_TJj9alinzjETnJYKJMBT8k_UWvt2ITTWLJz2dGeQPSqJimQjkw016GI"/>
+</div>
+<div class="size-10 rounded-full border-2 border-slate-800 bg-slate-300 overflow-hidden" data-alt="Profile avatar of a researcher">
+<img alt="avatar" data-alt="Avatar of a female researcher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7gBQ7XHRPz6x99iPYy9IaJjvaLC-TiMsvbd-2qfEUH_yRR7Mz0_sEPLdYz-8s-QdY9z_gptBDngXwayp5hg5wOQ1CvzOUBzvcIYrXNnrK7bAFflF4rc6rvqaiPlqCw0pZbJyx2TmewoRfF_kIy4pjbMLny8bXOna3YLfAmVxZRoGsJtAlaq0fSasKW2TL5LqZ2Lpq_NyXBBV4PfBXIi6kZbzkKhji248g9WTX2394CJ9xqzc4oFNLjEIl9WVbtxgYdNGkrLl0-fg"/>
+</div>
+<div class="size-10 rounded-full border-2 border-slate-800 bg-slate-300 overflow-hidden" data-alt="Profile avatar of a researcher">
+<img alt="avatar" data-alt="Avatar of a male scientist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuY9yt4L4BrpPXXhClRBaxXvTQ8PCWuZ_UWz2XXzPpdHwmcwqpG4_cjoM_XDusfgUGosieAtSYBM9AeshsZTgipLov0FTMQDaQZ1t5YMqiOJo4vusnbkQ0p_ehkHIbR0B1cdfn0Lsa4u5q0PjjvypExOeWC6ig796PhaWLs2YIIdNzvfF9zKW2SUjGQpI9y2ef4fwLCTolip3lASZaRoCAfVSumi-dsVm916F51d78qlcb6Sm6v02m82TLNy7tjtxe_nP-RFIWgos"/>
+</div>
+<div class="flex size-10 items-center justify-center rounded-full border-2 border-slate-800 bg-primary text-[10px] font-bold text-white">
+                                +12k
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>
