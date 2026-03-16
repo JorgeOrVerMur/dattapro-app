@@ -1,7 +1,54 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const [formData, setFormData] = useState({
+        nombres: '',      // Antes era nombre
+        apellidos: '',    // Antes era apellido
+        correoInstitucional: '',
+        password: ''
+    });
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setErrorMessage('');
+
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/usuarios/registro', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.status === 201) {
+                // Registro exitoso
+                navigate('/login');
+            } else if (response.status === 409) {
+                // Conflicto: correo ya existe
+                setErrorMessage('El correo institucional ya está registrado.');
+            } else {
+                setErrorMessage('Error al registrar la cuenta. Por favor, inténtalo de nuevo.');
+            }
+        } catch (error) {
+            setErrorMessage('Error de conexión. Verifica que el servidor esté en ejecución.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
             <div className="flex min-h-screen items-center justify-center p-6 sm:p-12">
@@ -30,9 +77,16 @@ const Register = () => {
                             <p className="text-slate-500 dark:text-slate-400 text-lg">Start your journey into the global researcher network.</p>
                         </div>
 
+                        {/* Error Message */}
+                        {errorMessage && (
+                            <div className="bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 p-4 rounded-2xl border border-red-200 dark:border-red-800/50 mb-6 text-sm font-medium text-center">
+                                {errorMessage}
+                            </div>
+                        )}
+
                         {/* Form Section */}
                         <div className="space-y-6">
-                            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                            <form className="space-y-6" onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="flex flex-col gap-2">
                                         <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">First Name</label>
@@ -40,6 +94,10 @@ const Register = () => {
                                             className="w-full px-5 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400"
                                             placeholder="e.g. Marie"
                                             type="text"
+                                            name="nombres"  // Antes era nombre
+                                            value={formData.nombres}
+                                            onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                     <div className="flex flex-col gap-2">
@@ -48,6 +106,10 @@ const Register = () => {
                                             className="w-full px-5 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400"
                                             placeholder="e.g. Curie"
                                             type="text"
+                                            name="apellidos" // Antes era apellido
+                                            value={formData.apellidos}
+                                            onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -64,6 +126,10 @@ const Register = () => {
                                             className="w-full pl-12 pr-5 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400"
                                             placeholder="name@university.edu"
                                             type="email"
+                                            name="correoInstitucional"
+                                            value={formData.correoInstitucional}
+                                            onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -80,6 +146,10 @@ const Register = () => {
                                             className="w-full pl-12 pr-5 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400"
                                             placeholder="Create a strong password"
                                             type="password"
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                     <p className="text-xs text-slate-400 ml-1 mt-1">At least 8 characters, including numbers and symbols.</p>
@@ -90,14 +160,17 @@ const Register = () => {
                                         <Link to="/login" className="text-primary font-bold hover:underline">Sign in</Link>
                                     </p>
                                     <button
-                                        className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-primary/20 hover:shadow-primary/30 hover:-translate-y-0.5 active:scale-[0.98] order-1 sm:order-2"
-                                        type="button"
+                                        className="w-full sm:w-auto bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed text-white font-bold py-4 px-10 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-primary/20 hover:shadow-primary/30 hover:-translate-y-0.5 active:scale-[0.98] order-1 sm:order-2"
+                                        type="submit"
+                                        disabled={isLoading}
                                     >
-                                        Create Account
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-                                            <line x1="5" y1="12" x2="19" y2="12" />
-                                            <polyline points="12 5 19 12 12 19" />
-                                        </svg>
+                                        {isLoading ? 'Registering...' : 'Create Account'}
+                                        {!isLoading && (
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                                                <line x1="5" y1="12" x2="19" y2="12" />
+                                                <polyline points="12 5 19 12 12 19" />
+                                            </svg>
+                                        )}
                                     </button>
                                 </div>
                             </form>
