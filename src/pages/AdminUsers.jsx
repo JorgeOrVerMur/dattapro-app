@@ -10,7 +10,7 @@ const AdminUsers = () => {
 
     const fetchUsuarios = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/v1/usuarios');
+            const response = await fetch('http://localhost:8080/api/v1/admin/usuarios');
             if (!response.ok) {
                 throw new Error('Error al obtener la lista de usuarios');
             }
@@ -36,7 +36,6 @@ const AdminUsers = () => {
     const handleRoleChange = async (usuario, nuevoRol) => {
         if (usuario.rol === nuevoRol) return;
         
-        // Asume que el ID del usuario existe en `usuario.id` o usa su identificador único
         const userId = usuario.id; 
         
         if (!userId) {
@@ -47,15 +46,17 @@ const AdminUsers = () => {
         setUpdatingId(userId);
 
         try {
-            // Se asume que el backend tiene un endpoint PUT para actualizar el rol
-            // Ajusta la URL según la estructura de tu Spring Boot (ej. /api/v1/usuarios/{id}/rol)
-            const response = await fetch(`http://localhost:8080/api/v1/usuarios/${userId}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/admin/usuarios/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                // Si el backend espera todo el objeto modificado:
-                body: JSON.stringify({ ...usuario, rol: nuevoRol })
+                body: JSON.stringify({
+                    nombres: usuario.nombres,
+                    apellidos: usuario.apellidos,
+                    correoInstitucional: usuario.correoInstitucional,
+                    rol: nuevoRol
+                })
             });
 
             if (!response.ok) {
@@ -67,12 +68,35 @@ const AdminUsers = () => {
                 prevUsuarios.map(u => u.id === userId ? { ...u, rol: nuevoRol } : u)
             );
             
-            // Opcional: mostrar un toast de éxito
+            
+            alert("Rol actualizado exitosamente");
         } catch (error) {
             console.error(error);
             alert("Error al actualizar el rol: " + error.message);
         } finally {
             setUpdatingId(null);
+        }
+    };
+
+    const handleDeleteUser = async (id) => {
+        if (!window.confirm("¿Estás seguro de eliminar este usuario?")) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/admin/usuarios/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                throw new Error('No se pudo eliminar el usuario');
+            }
+
+            setUsuarios(prevUsuarios => prevUsuarios.filter(u => u.id !== id));
+            alert('Usuario eliminado exitosamente');
+        } catch (error) {
+            console.error(error);
+            alert("Error al eliminar el usuario: " + error.message);
         }
     };
 
@@ -234,32 +258,43 @@ const AdminUsers = () => {
                                         </div>
                                     </div>
                                     
-                                    {/* Footer: Cambio de Rol */}
-                                    <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
-                                        <label htmlFor={`rol-${usuario.id}`} className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                            Asignar Rol
-                                        </label>
-                                        <div className="relative">
-                                            <select
-                                                id={`rol-${usuario.id}`}
-                                                value={usuario.rol || 'profesor'}
-                                                disabled={updatingId === usuario.id}
-                                                onChange={(e) => handleRoleChange(usuario, e.target.value)}
-                                                className="block w-full pl-3 pr-10 py-2 text-sm border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg focus:ring-red-500 focus:border-red-500 transition-colors appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-wait"
-                                            >
-                                                <option value="profesor">Profesor</option>
-                                                <option value="lider">Líder</option>
-                                            </select>
-                                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
-                                                {updatingId === usuario.id ? (
-                                                    <div className="animate-spin h-4 w-4 border-2 border-red-500 border-t-transparent rounded-full"></div>
-                                                ) : (
-                                                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                                                    </svg>
-                                                )}
+                                    {/* Footer: Acciones admin */}
+                                    <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-4">
+                                        <div className="flex flex-col gap-1.5">
+                                            <label htmlFor={`rol-${usuario.id}`} className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                                Asignar Rol
+                                            </label>
+                                            <div className="relative">
+                                                <select
+                                                    id={`rol-${usuario.id}`}
+                                                    value={usuario.rol || 'profesor'}
+                                                    disabled={updatingId === usuario.id}
+                                                    onChange={(e) => handleRoleChange(usuario, e.target.value)}
+                                                    className="block w-full pl-3 pr-10 py-2 text-sm border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg focus:ring-red-500 focus:border-red-500 transition-colors appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-wait"
+                                                >
+                                                    <option value="profesor">Profesor</option>
+                                                    <option value="lider">Líder</option>
+                                                </select>
+                                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                                                    {updatingId === usuario.id ? (
+                                                        <div className="animate-spin h-4 w-4 border-2 border-red-500 border-t-transparent rounded-full"></div>
+                                                    ) : (
+                                                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                                        </svg>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
+                                        <button 
+                                            onClick={() => handleDeleteUser(usuario.id)}
+                                            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 text-sm font-semibold rounded-lg transition-colors border border-red-100 dark:border-red-900/40"
+                                        >
+                                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                            Eliminar Usuario
+                                        </button>
                                     </div>
                                 </div>
                             ))}
