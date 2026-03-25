@@ -2,134 +2,134 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 const Step2 = () => {
-  const { register, watch, formState: { errors } } = useFormContext();
-
-  const perteneceCentro = watch('perteneceCentro');
+  const { register, formState: { errors } } = useFormContext();
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-800 border-b pb-2">Paso 2: Datos Generales</h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-md shadow-sm border border-gray-100">
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      {/* Header Sección */}
+      <div className="flex items-center space-x-3">
+        <div className="p-2.5 bg-primary/10 rounded-xl">
+          <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
-          <input 
-            type="text" 
-            {...register('nombre', { required: 'El nombre es requerido' })} 
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-            placeholder="Ej. Juan Pérez"
-          />
-          {errors.nombre && <span className="text-red-500 text-xs mt-1 block">{errors.nombre.message}</span>}
+          <h2 className="text-2xl font-black text-slate-800 tracking-tight">Información Básica</h2>
+          <p className="text-sm text-slate-500 font-medium leading-none mt-1">Detalles institucionales y de contacto</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
+        {/* Nombre Completo */}
+        <div className="space-y-2">
+          <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Nombre Completo</label>
+          <div className="relative group">
+            <input
+              type="text"
+              {...register('nombre', { required: 'El nombre es requerido' })}
+              className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary focus:bg-white outline-none transition-all font-semibold text-slate-700 placeholder:text-slate-400"
+              placeholder="Ej. Juan Pérez"
+            />
+            {errors.nombre && <span className="text-red-500 text-[11px] font-bold absolute -bottom-5 left-1 uppercase">{errors.nombre.message}</span>}
+          </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Documento de Identidad</label>
-          <input 
-            type="text" 
-            {...register('documento', { required: 'El documento es requerido' })} 
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-            placeholder="Ej. 123456789"
-          />
-          {errors.documento && <span className="text-red-500 text-xs mt-1 block">{errors.documento.message}</span>}
+        {/* Documento */}
+        <div className="space-y-2">
+          <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Documento de Identificación</label>
+          <div className="relative group">
+            <input
+              type="text"
+              {...register('documento', { required: 'El documento es requerido' })}
+              className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary focus:bg-white outline-none transition-all font-semibold text-slate-700 placeholder:text-slate-400"
+              placeholder="Ej. 1090123456"
+            />
+            {errors.documento && <span className="text-red-500 text-[11px] font-bold absolute -bottom-5 left-1 uppercase">{errors.documento.message}</span>}
+          </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
-          <input 
-            type="email" 
-            {...register('correo', { 
-              required: 'El correo es requerido',
-              pattern: { value: /^\S+@\S+$/i, message: 'Correo inválido' }
-            })} 
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-            placeholder="ejemplo@correo.com"
-          />
-          {errors.correo && <span className="text-red-500 text-xs mt-1 block">{errors.correo.message}</span>}
+        {/* Correo */}
+        <div className="space-y-2">
+          <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Correo Institucional</label>
+          <div className="relative group">
+            <input
+              type="email"
+              {...register('correo', {
+                required: 'El correo es requerido',
+                pattern: { value: /^\S+@\S+$/i, message: 'Correo inválido' }
+              })}
+              className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary focus:bg-white outline-none transition-all font-semibold text-slate-700 placeholder:text-slate-400"
+              placeholder="usuario@unisimon.edu.co"
+            />
+            {errors.correo && <span className="text-red-500 text-[11px] font-bold absolute -bottom-5 left-1 uppercase">{errors.correo.message}</span>}
+          </div>
         </div>
 
-        <div>
-           <label className="block text-sm font-medium text-gray-700 mb-1">Facultad</label>
-          <select 
+        {/* Programa */}
+        <div className="space-y-2">
+          <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Programa Académico</label>
+          <div className="relative group">
+            <input
+              type="text"
+              {...register('programa', { required: 'El programa es requerido' })}
+              className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary focus:bg-white outline-none transition-all font-semibold text-slate-700 placeholder:text-slate-400"
+              placeholder="Ej. Ingeniería de Sistemas"
+            />
+            {errors.programa && <span className="text-red-500 text-[11px] font-bold absolute -bottom-5 left-1 uppercase">{errors.programa.message}</span>}
+          </div>
+        </div>
+
+        {/* Facultad */}
+        <div className="space-y-2">
+          <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Facultad</label>
+          <select
             {...register('facultad', { required: 'La facultad es requerida' })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white transition-all"
+            className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary focus:bg-white outline-none appearance-none transition-all font-semibold text-slate-700"
           >
             <option value="">Seleccione una facultad...</option>
-            <option value="Ingenieria">Ingeniería</option>
-            <option value="Derecho">Derecho</option>
-            <option value="Salud">Salud</option>
-            <option value="Administracion y Negocios">Administración y Negocios</option>
-            <option value="Ciencias Basicas">Ciencias Básicas</option>
+            <option value="Ingenierías">Facultad de Ingeniería</option>
+            <option value="Ciencias Basicas">Facultad de Ciencias Básicas</option>
+            <option value="Derecho">Facultad de Derecho</option>
+            <option value="Medicina">Facultad de Medicina</option>
+            <option value="Administracion">Facultad de Administración</option>
           </select>
-          {errors.facultad && <span className="text-red-500 text-xs mt-1 block">{errors.facultad.message}</span>}
+          {errors.facultad && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.facultad.message}</span>}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Programa</label>
-          <input 
-            type="text" 
-            {...register('programa', { required: 'El programa es requerido' })} 
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-            placeholder="Ej. Ingeniería de Sistemas"
-          />
-          {errors.programa && <span className="text-red-500 text-xs mt-1 block">{errors.programa.message}</span>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Vinculación</label>
-          <select 
-            {...register('tipoVinculacion', { required: 'El tipo de vinculación es requerido' })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white transition-all"
-          >
-            <option value="">Seleccione...</option>
-            <option value="Tiempo Completo">Tiempo Completo</option>
-            <option value="Medio Tiempo">Medio Tiempo</option>
-            <option value="Catedra">Cátedra</option>
-            <option value="Ocasional">Ocasional</option>
-          </select>
-          {errors.tipoVinculacion && <span className="text-red-500 text-xs mt-1 block">{errors.tipoVinculacion.message}</span>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Sede</label>
-          <select 
+        {/* Sede */}
+        <div className="space-y-2">
+          <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Sede Principal</label>
+          <select
             {...register('sede', { required: 'La sede es requerida' })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white transition-all"
+            className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary focus:bg-white outline-none appearance-none transition-all font-semibold text-slate-700"
           >
-            <option value="">Seleccione una sede...</option>
-            <option value="Cucuta">Cúcuta</option>
-            <option value="Bogota">Bogotá</option>
+            <option value="">Seleccione Sede...</option>
+            <option value="Cúcuta">Cúcuta</option>
             <option value="Barranquilla">Barranquilla</option>
           </select>
-          {errors.sede && <span className="text-red-500 text-xs mt-1 block">{errors.sede.message}</span>}
+          {errors.sede && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.sede.message}</span>}
         </div>
+      </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">¿Pertenece a un Centro Investigativo?</label>
-          <div className="flex space-x-6">
-             <label className="flex items-center cursor-pointer">
-              <input type="radio" value="true" {...register('perteneceCentro', { required: 'Requerido' })} className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" />
-              <span className="text-gray-700">Sí</span>
-            </label>
-            <label className="flex items-center cursor-pointer">
-              <input type="radio" value="false" {...register('perteneceCentro', { required: 'Requerido' })} className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" />
-              <span className="text-gray-700">No</span>
-            </label>
+      {/* Tipo de Vinculación */}
+      <div className="p-8 bg-primary/5 border border-primary/10 rounded-[2.5rem] mt-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-1">
+            <h3 className="font-bold text-slate-800">Tipo de Vinculación</h3>
+            <p className="text-xs text-slate-500 font-medium">Define tu relación contractual con la institución</p>
           </div>
-          {errors.perteneceCentro && <span className="text-red-500 text-xs mt-1 block">{errors.perteneceCentro.message}</span>}
+          <div className="flex-1 max-w-xs">
+            <select
+              {...register('tipoVinculacion', { required: 'El tipo de vinculación es requerido' })}
+              className="w-full px-5 py-3.5 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none transition-all font-bold text-slate-700 shadow-sm"
+            >
+              <option value="">Seleccione...</option>
+              <option value="Tiempo Completo">Tiempo Completo</option>
+              <option value="Medio Tiempo">Medio Tiempo</option>
+              <option value="Catedratico">Catedrático</option>
+            </select>
+          </div>
         </div>
-
-        {perteneceCentro === 'true' && (
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Nombre del Centro Investigativo</label>
-            <input 
-               type="text" 
-              {...register('centroInvestigativo', { required: perteneceCentro === 'true' ? 'El centro investigativo es requerido' : false })} 
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-              placeholder="Escriba el nombre del centro"
-            />
-            {errors.centroInvestigativo && <span className="text-red-500 text-xs mt-1 block">{errors.centroInvestigativo.message}</span>}
-          </div>
-        )}
       </div>
     </div>
   );
