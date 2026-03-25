@@ -36,7 +36,9 @@ const PerfilWizard = () => {
             sede: rawData.sede || '',
             perteneceCentro: rawData.perteneceCentro ? 'true' : 'false',
             centroInvestigativo: rawData.centroInvestigativo || '',
-            nivelFormacion: rawData.nivelFormacion || '',
+            formaciones: Array.isArray(rawData.formaciones) && rawData.formaciones.length > 0 
+              ? rawData.formaciones 
+              : [{ nivel: '', titulo: '' }],
             areas: rawData.areasConocimiento || '',
             idiomas: Array.isArray(rawData.idiomas) ? rawData.idiomas.join(', ') : (rawData.idiomas || ''),
             certificaciones: rawData.certificaciones || '',
