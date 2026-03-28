@@ -308,10 +308,10 @@ const Step3 = () => {
             <textarea
               rows="4"
               placeholder="Describe brevemente tus años de experiencia y roles principales..."
-              {...register('experiencia', { required: 'La experiencia es requerida' })}
+              {...register('experienciaServicios', { required: 'La experiencia es requerida' })}
               className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-[2rem] focus:ring-4 focus:ring-primary/10 focus:border-primary focus:bg-white outline-none transition-all font-medium text-slate-700 placeholder:text-slate-400 resize-none leading-relaxed shadow-sm"
             ></textarea>
-            {errors.experiencia && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.experiencia.message}</span>}
+            {errors.experienciaServicios && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.experienciaServicios.message}</span>}
           </div>
 
           <div className="space-y-2">

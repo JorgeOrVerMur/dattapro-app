@@ -28,6 +28,17 @@ const Step4 = () => {
     name: "competenciasTransversales"
   });
 
+  // Field Arrays para Servicios y Sectores
+  const { fields: serviciosFields, append: appendServicio, remove: removeServicio } = useFieldArray({
+    control,
+    name: "servicios"
+  });
+
+  const { fields: sectoresFields, append: appendSector, remove: removeSector } = useFieldArray({
+    control,
+    name: "sectores"
+  });
+
   const especialidadesOpciones = [
     "Educación", "Salud", "Industria", "TIC / Software", "Emprendimiento",
     "Finanzas / Contabilidad", "Derecho / Normativo", "Energía / Sostenibilidad",
@@ -47,6 +58,32 @@ const Step4 = () => {
   const transversalesOpciones = [
     "Comunicación efectiva", "Trabajo colaborativo", "Adaptabilidad",
     "Liderazgo", "Orientación a resultados"
+  ];
+
+  const serviciosOpciones = [
+    "Consultoría técnica",
+    "Asesoría estratégica",
+    "Formación / Talleres / Docencia",
+    "Mentoría / Coaching",
+    "Desarrollo tecnológico",
+    "Investigación aplicada",
+    "Diagnósticos y estudios",
+    "Contenidos digitales",
+    "Auditoría",
+    "Gestión de proyectos",
+    "Comercial / Marketing",
+    "Logística / Operaciones",
+    "Legal / Normativo"
+  ];
+
+  const sectoresOpciones = [
+    "Público",
+    "Privado",
+    "Academia / Investigación",
+    "Internacional",
+    "Social / Comunitario",
+    "ONG / Sin fines de lucro",
+    "Cooperativismo / Economía Solidaria"
   ];
 
   const nivelesOpciones = [
@@ -158,7 +195,7 @@ const Step4 = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8 border-t border-slate-100">
-          {/* Sectores (intereses) */}
+          {/* Interés en Proyectos */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Interés en Proyectos</label>
@@ -169,11 +206,14 @@ const Step4 = () => {
             </div>
             <div className="space-y-3">
               {interesesFields.map((field, index) => (
-                <div key={field.id} className="relative group">
-                  <select {...register(`intereses.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700">
+                <div key={field.id} className="relative group animate-in slide-in-from-left-2 duration-300">
+                  <select {...register(`intereses.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700 shadow-sm">
                     <option value="">Seleccione...</option>
                     {interesesOpciones.map(op => <option key={op} value={op}>{op}</option>)}
                   </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-10 flex items-center px-2 text-slate-400">
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                  </div>
                   {interesesFields.length > 1 && (
                     <button type="button" onClick={() => removeInteres(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-red-500 p-1">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -184,7 +224,7 @@ const Step4 = () => {
             </div>
           </div>
 
-          {/* Especialidades */}
+          {/* Áreas de Especialidad */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Áreas de Especialidad</label>
@@ -195,13 +235,77 @@ const Step4 = () => {
             </div>
             <div className="space-y-3">
               {especialidadFields.map((field, index) => (
-                <div key={field.id} className="relative group">
-                  <select {...register(`areasEspecialidad.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700">
+                <div key={field.id} className="relative group animate-in slide-in-from-right-2 duration-300">
+                  <select {...register(`areasEspecialidad.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700 shadow-sm">
                     <option value="">Seleccione...</option>
                     {especialidadesOpciones.map(op => <option key={op} value={op}>{op}</option>)}
                   </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-10 flex items-center px-2 text-slate-400">
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                  </div>
                   {especialidadFields.length > 1 && (
-                    <button type="button" onClick={() => removeEspecialidad(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-red-500 p-1">
+                    <button type="button" onClick={() => removeEspecialidad(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-red-500 p-1 transition-colors">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Nuevas Secciones: Servicios y Sectores de Experiencia */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8 border-t border-slate-100">
+          {/* Servicios que Ofrece */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Servicios que Ofrece</label>
+              <button type="button" onClick={() => appendServicio({ nombre: '' })} className="text-[11px] font-bold text-primary hover:text-primary-dark transition-colors flex items-center gap-1">
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+                Añadir
+              </button>
+            </div>
+            <div className="space-y-3">
+              {serviciosFields.map((field, index) => (
+                <div key={field.id} className="relative group animate-in slide-in-from-left-2 duration-300">
+                  <select {...register(`servicios.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700 shadow-sm">
+                    <option value="">Seleccione servicio...</option>
+                    {serviciosOpciones.map(op => <option key={op} value={op}>{op}</option>)}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-10 flex items-center px-2 text-slate-400">
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                  </div>
+                  {serviciosFields.length > 1 && (
+                    <button type="button" onClick={() => removeServicio(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-red-500 p-1 transition-colors">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sectores de Experiencia */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Sectores de Experiencia</label>
+              <button type="button" onClick={() => appendSector({ nombre: '' })} className="text-[11px] font-bold text-primary hover:text-primary-dark transition-colors flex items-center gap-1">
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+                Añadir
+              </button>
+            </div>
+            <div className="space-y-3">
+              {sectoresFields.map((field, index) => (
+                <div key={field.id} className="relative group animate-in slide-in-from-right-2 duration-300">
+                  <select {...register(`sectores.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700 shadow-sm">
+                    <option value="">Seleccione sector...</option>
+                    {sectoresOpciones.map(op => <option key={op} value={op}>{op}</option>)}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-10 flex items-center px-2 text-slate-400">
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                  </div>
+                  {sectoresFields.length > 1 && (
+                    <button type="button" onClick={() => removeSector(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-red-500 p-1 transition-colors">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                   )}

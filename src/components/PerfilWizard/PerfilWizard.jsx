@@ -51,28 +51,32 @@ const PerfilWizard = () => {
             sede: rawData.sede || '',
             perteneceCentro: rawData.perteneceCentro ? 'true' : 'false',
             centroInvestigativo: rawData.centroInvestigativo || '',
-            formaciones: Array.isArray(rawData.formaciones) && rawData.formaciones.length > 0 
-              ? rawData.formaciones 
+            formaciones: Array.isArray(rawData.formaciones) && rawData.formaciones.length > 0
+              ? rawData.formaciones
               : [{ nivel: '', titulo: '' }],
-            areas: Array.isArray(rawData.areas) && rawData.areas.length > 0 
-              ? rawData.areas 
+            areas: Array.isArray(rawData.areas) && rawData.areas.length > 0
+              ? rawData.areas
               : [{ nombre: '' }],
             idiomas: Array.isArray(rawData.idiomas) ? rawData.idiomas.join(', ') : (rawData.idiomas || ''),
-            certificacionesNombres: Array.isArray(rawData.certificaciones) 
-              ? rawData.certificaciones.map(c => c.nombre || c) 
+            certificacionesNombres: Array.isArray(rawData.certificaciones)
+              ? rawData.certificaciones.map(c => c.nombre || c)
               : [],
-            experiencia: rawData.experiencia || '',
+            experienciaServicios: rawData.experienciaServicios || '',
             proyectos: rawData.proyectosDestacados || '',
             perfil: rawData.perfilProfesional || '',
-            competenciasTecnicas: Array.isArray(rawData.competenciasTecnicas) && rawData.competenciasTecnicas.length > 0 
-              ? rawData.competenciasTecnicas 
+            competenciasTecnicas: Array.isArray(rawData.competenciasTecnicas) && rawData.competenciasTecnicas.length > 0
+              ? rawData.competenciasTecnicas
               : [{ nombre: '', nivel: 1 }],
-            competenciasTransversales: Array.isArray(rawData.competenciasTransversales) && rawData.competenciasTransversales.length > 0 
-              ? rawData.competenciasTransversales 
+            competenciasTransversales: Array.isArray(rawData.competenciasTransversales) && rawData.competenciasTransversales.length > 0
+              ? rawData.competenciasTransversales
               : [{ nombre: '', nivel: 1 }],
             redes: rawData.redesProfesionales || '',
-            servicios: rawData.serviciosOffrecidos || '',
-            sectores: rawData.sectoresInteres || '',
+            servicios: Array.isArray(rawData.servicios) && rawData.servicios.length > 0
+              ? rawData.servicios
+              : [{ nombre: '' }],
+            sectores: Array.isArray(rawData.sectoresExperiencia) && rawData.sectoresExperiencia.length > 0
+              ? rawData.sectoresExperiencia
+              : [{ nombre: '' }],
             intereses: Array.isArray(rawData.intereses) && rawData.intereses.length > 0
               ? rawData.intereses
               : [{ nombre: '' }],
@@ -100,7 +104,7 @@ const PerfilWizard = () => {
     try {
       const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
       const token = authToken || localStorage.getItem('token');
-      
+
       const { certificacionesNombres, ...rest } = data;
       const formattedData = {
         ...rest,
@@ -111,7 +115,7 @@ const PerfilWizard = () => {
 
       const response = await fetch(`${API_BASE_URL}/usuarios/perfil`, {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -180,11 +184,10 @@ const PerfilWizard = () => {
                 <button
                   key={s.id}
                   onClick={() => setStep(s.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all font-bold text-sm ${
-                    step === s.id
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all font-bold text-sm ${step === s.id
                       ? 'bg-primary text-white shadow-lg shadow-orange-500/30'
                       : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400'
-                  }`}
+                    }`}
                 >
                   <div className={`${step === s.id ? 'text-white' : 'text-slate-400'}`}>
                     {s.icon}
@@ -199,50 +202,50 @@ const PerfilWizard = () => {
         {/* MAIN FORM AREA */}
         <div className="flex-1">
 
-            {/* Header */}
-            <div className="mb-10">
-              <h1 className="text-4xl font-black text-slate-900 mb-3 tracking-tight">Edit Profile</h1>
-              <p className="text-lg font-medium text-slate-500 leading-relaxed">
-                Manage your professional identity and credentials across the datta network.
-              </p>
-            </div>
-
-            {isLoadingData ? (
-              <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-200 p-24 flex flex-col items-center justify-center space-y-6">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-orange-500"></div>
-                <p className="text-xl text-slate-500 font-bold">Cargando información del perfil...</p>
-              </div>
-            ) : (
-              <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(submitFinal)}>
-                  <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-200 overflow-hidden mb-12">
-                    <div className="p-8 md:p-12 min-h-[400px]">
-                      {step === 1 && <Step1 />}
-                      {step === 2 && <Step2 />}
-                      {step === 3 && <Step3 />}
-                      {step === 4 && <Step4 />}
-                    </div>
-                  </div>
-
-                  {/* Actions Bar */}
-                  <div className="flex items-center justify-end space-x-6">
-                    <button type="button" className="text-slate-500 font-bold hover:text-slate-900 transition-colors">
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="px-10 py-4 bg-orange-500 text-white font-black rounded-2xl hover:bg-orange-600 active:scale-95 transition-all shadow-xl shadow-orange-500/30 disabled:opacity-50 text-lg"
-                    >
-                      {isSubmitting ? 'Saving...' : 'Save Changes'}
-                    </button>
-                  </div>
-                </form>
-              </FormProvider>
-            )}
-            </div>
+          {/* Header */}
+          <div className="mb-10">
+            <h1 className="text-4xl font-black text-slate-900 mb-3 tracking-tight">Edit Profile</h1>
+            <p className="text-lg font-medium text-slate-500 leading-relaxed">
+              Manage your professional identity and credentials across the datta network.
+            </p>
           </div>
+
+          {isLoadingData ? (
+            <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-200 p-24 flex flex-col items-center justify-center space-y-6">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-orange-500"></div>
+              <p className="text-xl text-slate-500 font-bold">Cargando información del perfil...</p>
+            </div>
+          ) : (
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(submitFinal)}>
+                <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-200 overflow-hidden mb-12">
+                  <div className="p-8 md:p-12 min-h-[400px]">
+                    {step === 1 && <Step1 />}
+                    {step === 2 && <Step2 />}
+                    {step === 3 && <Step3 />}
+                    {step === 4 && <Step4 />}
+                  </div>
+                </div>
+
+                {/* Actions Bar */}
+                <div className="flex items-center justify-end space-x-6">
+                  <button type="button" className="text-slate-500 font-bold hover:text-slate-900 transition-colors">
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="px-10 py-4 bg-orange-500 text-white font-black rounded-2xl hover:bg-orange-600 active:scale-95 transition-all shadow-xl shadow-orange-500/30 disabled:opacity-50 text-lg"
+                  >
+                    {isSubmitting ? 'Saving...' : 'Save Changes'}
+                  </button>
+                </div>
+              </form>
+            </FormProvider>
+          )}
         </div>
+      </div>
+    </div>
   );
 };
 
