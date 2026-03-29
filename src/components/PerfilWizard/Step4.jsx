@@ -298,7 +298,7 @@ const Step4 = () => {
             {errors.objetivo && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.objetivo.message}</span>}
           </div>
 
-          <div className="p-6 bg-slate-900 rounded-[2rem] text-white shadow-xl flex items-center justify-between overflow-hidden relative">
+          {/* <div className="p-6 bg-slate-900 rounded-[2rem] text-white shadow-xl flex items-center justify-between overflow-hidden relative">
             <div className="relative z-10 w-2/3">
               <h4 className="font-bold text-lg mb-1 italic">¡Casi listo!</h4>
               <p className="text-xs text-slate-400 leading-relaxed font-medium">Revisa que toda tu información sea correcta antes de finalizar tu perfil profesional.</p>
@@ -309,7 +309,7 @@ const Step4 = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     </div>

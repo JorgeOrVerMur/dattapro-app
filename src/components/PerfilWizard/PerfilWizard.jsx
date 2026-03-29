@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { API_BASE_URL } from '../../config/api';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
@@ -35,6 +36,7 @@ const PerfilWizard = () => {
       experienciaServicios: '',
       proyectos: '',
       perfil: '',
+      descripcionProyectos: '',
       competenciasTecnicas: [{ nombre: '', nivel: 1 }],
       competenciasTransversales: [{ nombre: '', nivel: 1 }],
       servicios: [{ nombre: '' }],
@@ -62,7 +64,7 @@ const PerfilWizard = () => {
           return;
         }
 
-        const response = await fetch(`http://localhost:8080/api/v1/usuarios/perfil/me`, {
+        const response = await fetch(`${API_BASE_URL}/usuarios/perfil/me`, {
           headers: {
             'accept': '*/*',
             'Authorization': `Bearer ${token}`
@@ -71,7 +73,7 @@ const PerfilWizard = () => {
 
         if (response.ok) {
           const rawData = await response.json();
-          
+
           const mappedData = {
             nombre: rawData.nombres || '',
             apellidos: rawData.apellidos || '',
@@ -84,67 +86,69 @@ const PerfilWizard = () => {
             sede: rawData.sede || '',
             perteneceCentro: rawData.centroInvestigativo ? 'true' : 'false',
             centroInvestigativo: rawData.centroInvestigativo || '',
-            
+
             formaciones: Array.isArray(rawData.formaciones) && rawData.formaciones.length > 0
               ? rawData.formaciones
               : [{ nivel: '', titulo: '' }],
-            
+
             areas: Array.isArray(rawData.areas) && rawData.areas.length > 0
               ? rawData.areas
               : [{ nombre: '' }],
-              
-            idiomas: Array.isArray(rawData.idiomas) 
+
+            idiomas: Array.isArray(rawData.idiomas)
               ? rawData.idiomas.map(i => `${i.idioma} (${i.nivel})`).join(', ')
               : (rawData.idiomas || ''),
-              
+
             certificacionesNombres: Array.isArray(rawData.certificaciones)
               ? rawData.certificaciones.map(c => c.nombre || c)
               : [],
-              
+
             experienciaServicios: rawData.experienciaServicios || '',
-            
+
             // Corregido: En el JSON viene como "proyectos"
             proyectos: Array.isArray(rawData.proyectos)
               ? rawData.proyectos.map(p => p.nombre).join(', ')
               : (rawData.proyectosDestacados || ''),
-              
+
             perfil: rawData.perfilProfesional || '',
-            
+
+            descripcionProyectos: rawData.descripcionProyectos || '',
+
             competenciasTecnicas: Array.isArray(rawData.competenciasTecnicas) && rawData.competenciasTecnicas.length > 0
               ? rawData.competenciasTecnicas
               : [{ nombre: '', nivel: 1 }],
-              
+
             competenciasTransversales: Array.isArray(rawData.competenciasTransversales) && rawData.competenciasTransversales.length > 0
               ? rawData.competenciasTransversales
               : [{ nombre: '', nivel: 1 }],
-              
+
             servicios: Array.isArray(rawData.servicios) && rawData.servicios.length > 0
               ? rawData.servicios
               : [{ nombre: '' }],
-              
+
             // Corregido: En el JSON viene como "sectoresExperiencia"
             sectores: Array.isArray(rawData.sectoresExperiencia) && rawData.sectoresExperiencia.length > 0
               ? rawData.sectoresExperiencia
               : [{ nombre: '' }],
-              
+
             intereses: Array.isArray(rawData.intereses) && rawData.intereses.length > 0
               ? rawData.intereses
               : [{ nombre: '' }],
-              
+
             objetivo: rawData.objetivo || '',
             cvlac: rawData.cvlac || '',
             linkedin: rawData.linkedin || '',
             googleScholar: rawData.googleScholar || '',
             otraRed: rawData.otraRed || '',
-            
+
             areasEspecialidad: Array.isArray(rawData.areasEspecialidad) && rawData.areasEspecialidad.length > 0
               ? rawData.areasEspecialidad
               : [{ nombre: '' }],
-              
+
             deseaVincularse: 'true',
             autorizaDatos: 'true'
           };
-          
+
           reset(mappedData);
         }
       } catch (error) {
@@ -160,7 +164,6 @@ const PerfilWizard = () => {
     setIsSubmitting(true);
     setSubmitResult(null);
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
       const token = authToken || localStorage.getItem('token');
 
       const { certificacionesNombres, ...rest } = data;

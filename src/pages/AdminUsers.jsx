@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE_URL } from '../config/api';
 
 const AdminUsers = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const AdminUsers = () => {
 
     const fetchUsuarios = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/v1/admin/usuarios');
+            const response = await fetch(`${API_BASE_URL}/admin/usuarios`);
             if (!response.ok) {
                 throw new Error('Error al obtener la lista de usuarios');
             }
@@ -50,7 +51,7 @@ const AdminUsers = () => {
         setUpdatingId(userId);
 
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/admin/usuarios/${userId}`, {
+            const response = await fetch(`${API_BASE_URL}/admin/usuarios/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -88,7 +89,7 @@ const AdminUsers = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/admin/usuarios/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/admin/usuarios/${id}`, {
                 method: 'DELETE'
             });
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useFormContext, useFieldArray, Controller } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable';
+import { API_BASE_URL } from '../../config/api';
 
 const Step3 = () => {
   const { register, control, formState: { errors } } = useFormContext();
@@ -10,7 +11,7 @@ const Step3 = () => {
   useEffect(() => {
     const fetchCertificaciones = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/certificaciones');
+        const response = await fetch(`${API_BASE_URL}/certificaciones`);
         if (response.ok) {
           const data = await response.json();
           const options = data.map(cert => ({
@@ -328,66 +329,66 @@ const Step3 = () => {
 
       </section>
 
-        {/* Secciones: Servicios y Sectores de Experiencia */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8 border-t border-slate-100">
-          {/* Servicios que Ofrece */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Servicios que Ofrece</label>
-              <button type="button" onClick={() => appendServicio({ nombre: '' })} className="text-[11px] font-bold text-primary hover:text-primary-dark transition-colors flex items-center gap-1">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
-                Añadir
-              </button>
-            </div>
-            <div className="space-y-3">
-              {serviciosFields.map((field, index) => (
-                <div key={field.id} className="relative group animate-in slide-in-from-left-2 duration-300">
-                  <select {...register(`servicios.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700 shadow-sm">
-                    <option value="">Seleccione servicio...</option>
-                    {serviciosOpciones.map(op => <option key={op} value={op}>{op}</option>)}
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-10 flex items-center px-2 text-slate-400">
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
-                  </div>
-                  {serviciosFields.length > 1 && (
-                    <button type="button" onClick={() => removeServicio(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-red-500 p-1 transition-colors">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
+      {/* Secciones: Servicios y Sectores de Experiencia */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8 border-t border-slate-100">
+        {/* Servicios que Ofrece */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Servicios que Ofrece</label>
+            <button type="button" onClick={() => appendServicio({ nombre: '' })} className="text-[11px] font-bold text-primary hover:text-primary-dark transition-colors flex items-center gap-1">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+              Añadir
+            </button>
           </div>
-
-          {/* Sectores de Experiencia */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Sectores de Experiencia</label>
-              <button type="button" onClick={() => appendSector({ nombre: '' })} className="text-[11px] font-bold text-primary hover:text-primary-dark transition-colors flex items-center gap-1">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
-                Añadir
-              </button>
-            </div>
-            <div className="space-y-3">
-              {sectoresFields.map((field, index) => (
-                <div key={field.id} className="relative group animate-in slide-in-from-right-2 duration-300">
-                  <select {...register(`sectores.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700 shadow-sm">
-                    <option value="">Seleccione sector...</option>
-                    {sectoresOpciones.map(op => <option key={op} value={op}>{op}</option>)}
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-10 flex items-center px-2 text-slate-400">
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
-                  </div>
-                  {sectoresFields.length > 1 && (
-                    <button type="button" onClick={() => removeSector(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-red-500 p-1 transition-colors">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
-                  )}
+          <div className="space-y-3">
+            {serviciosFields.map((field, index) => (
+              <div key={field.id} className="relative group animate-in slide-in-from-left-2 duration-300">
+                <select {...register(`servicios.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700 shadow-sm">
+                  <option value="">Seleccione servicio...</option>
+                  {serviciosOpciones.map(op => <option key={op} value={op}>{op}</option>)}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-10 flex items-center px-2 text-slate-400">
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
                 </div>
-              ))}
-            </div>
+                {serviciosFields.length > 1 && (
+                  <button type="button" onClick={() => removeServicio(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-red-500 p-1 transition-colors">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
         </div>
+
+        {/* Sectores de Experiencia */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Sectores de Experiencia</label>
+            <button type="button" onClick={() => appendSector({ nombre: '' })} className="text-[11px] font-bold text-primary hover:text-primary-dark transition-colors flex items-center gap-1">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+              Añadir
+            </button>
+          </div>
+          <div className="space-y-3">
+            {sectoresFields.map((field, index) => (
+              <div key={field.id} className="relative group animate-in slide-in-from-right-2 duration-300">
+                <select {...register(`sectores.${index}.nombre`)} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none appearance-none text-xs font-semibold text-slate-700 shadow-sm">
+                  <option value="">Seleccione sector...</option>
+                  {sectoresOpciones.map(op => <option key={op} value={op}>{op}</option>)}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-10 flex items-center px-2 text-slate-400">
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                </div>
+                {sectoresFields.length > 1 && (
+                  <button type="button" onClick={() => removeSector(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-red-500 p-1 transition-colors">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Sección Experiencia */}
       <section className="space-y-8">
@@ -403,6 +404,7 @@ const Step3 = () => {
           </div>
         </div>
 
+        {/* Formulario de Experiencia Servicios */}
         <div className="space-y-6">
           <div className="space-y-2">
             <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Resumen de Experiencia</label>
@@ -415,6 +417,19 @@ const Step3 = () => {
             {errors.experienciaServicios && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.experienciaServicios.message}</span>}
           </div>
 
+          {/* Descripción de Proyectos */}
+          <div className="space-y-2">
+            <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Descripción de Proyectos</label>
+            <textarea
+              rows="4"
+              placeholder="Describe los proyectos más relevantes en los que has participado o liderado..."
+              {...register('descripcionProyectos', { required: 'La descripción de proyectos es requerida' })}
+              className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-[2rem] focus:ring-4 focus:ring-primary/10 focus:border-primary focus:bg-white outline-none transition-all font-medium text-slate-700 placeholder:text-slate-400 resize-none leading-relaxed shadow-sm"
+            ></textarea>
+            {errors.descripcionProyectos && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.descripcionProyectos.message}</span>}
+          </div>
+
+          {/* Formulario de Experiencia Perfil */}
           <div className="space-y-2">
             <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Perfil Profesional (Bio)</label>
             <textarea

@@ -180,6 +180,31 @@ const Step2 = () => {
             {errors.facultad && <span className="text-red-500 text-[11px] font-bold absolute -bottom-5 left-1 uppercase">{errors.facultad.message}</span>}
           </div>
         </div>
+
+        {/* Centro Investigativo */}
+        <div className="space-y-2">
+          <label className="text-[13px] font-bold text-slate-500 uppercase tracking-wider ml-1">Centro Investigativo</label>
+          <div className="relative group">
+            <select
+              {...register('centroInvestigativo', { required: 'El centro investigativo es requerido' })}
+              className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary focus:bg-white outline-none appearance-none transition-all font-semibold text-slate-700 shadow-sm"
+            >
+              <option value="">Seleccione un centro investigativo...</option>
+              <option value="Adaptia">Adaptia</option>
+              <option value="AudacIA">AudacIA</option>
+              <option value="MACONDOLAB">MACONDOLAB</option>
+              <option value="CICV">CICV</option>
+              <option value="CIISO">CIISO</option>
+              <option value="CIEF">CIEF</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+               </svg>
+            </div>
+            {errors.centroInvestigativo && <span className="text-red-500 text-[11px] font-bold absolute -bottom-5 left-1 uppercase">{errors.centroInvestigativo.message}</span>}
+          </div>
+        </div>
       </div>
 
       {/* Tipo de Vinculación */}

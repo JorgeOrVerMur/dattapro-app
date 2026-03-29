@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config/api';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ const Register = () => {
         setErrorMessage('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/usuarios/registro', {
+            const response = await fetch(`${API_BASE_URL}/usuarios/registro`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

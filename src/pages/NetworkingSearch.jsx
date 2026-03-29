@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE_URL } from '../config/api';
 
 const NetworkingSearch = () => {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ const NetworkingSearch = () => {
         const fetchUsuarios = async () => {
             try {
                 // Adjust the endpoint if necessary. Assuming GET /api/v1/usuarios returns the list.
-                const response = await fetch('http://localhost:8080/api/v1/usuarios');
+                const response = await fetch(`${API_BASE_URL}/usuarios`);
                 if (!response.ok) {
                     throw new Error('Error al obtener la lista de usuarios.');
                 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE_URL } from '../config/api';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Login = () => {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/auth/login', {
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'accept': '*/*',
