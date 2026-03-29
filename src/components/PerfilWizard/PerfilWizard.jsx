@@ -17,6 +17,37 @@ const PerfilWizard = () => {
 
 
   const methods = useForm({
+    defaultValues: {
+      nombre: '',
+      apellidos: '',
+      correo: '',
+      tipoDocumento: '',
+      programa: '',
+      documento: '',
+      facultad: '',
+      tipoVinculacion: '',
+      sede: '',
+      perteneceCentro: 'false',
+      centroInvestigativo: '',
+      formaciones: [{ nivel: '', titulo: '' }],
+      areas: [{ nombre: '' }],
+      certificacionesNombres: [],
+      experienciaServicios: '',
+      proyectos: '',
+      perfil: '',
+      competenciasTecnicas: [{ nombre: '', nivel: 1 }],
+      competenciasTransversales: [{ nombre: '', nivel: 1 }],
+      servicios: [{ nombre: '' }],
+      sectores: [{ nombre: '' }],
+      intereses: [{ nombre: '' }],
+      areasEspecialidad: [{ nombre: '' }],
+      objetivo: '',
+      cvlac: '',
+      linkedin: '',
+      googleScholar: '',
+      otraRed: '',
+      idiomas: ''
+    },
     mode: 'onChange',
   });
 
@@ -27,7 +58,6 @@ const PerfilWizard = () => {
       try {
         const token = authToken || localStorage.getItem('token');
         if (!token) {
-          console.error('No se encontró el token de autenticación');
           setIsLoadingData(false);
           return;
         }
@@ -41,52 +71,80 @@ const PerfilWizard = () => {
 
         if (response.ok) {
           const rawData = await response.json();
+          
           const mappedData = {
             nombre: rawData.nombres || '',
+            apellidos: rawData.apellidos || '',
             correo: rawData.correoInstitucional || '',
+            tipoDocumento: rawData.tipoDocumento || '',
             programa: rawData.programaAcademico || '',
             documento: rawData.numeroIdentificacion || '',
             facultad: rawData.facultad || '',
             tipoVinculacion: rawData.tipoVinculacion || '',
             sede: rawData.sede || '',
-            perteneceCentro: rawData.perteneceCentro ? 'true' : 'false',
+            perteneceCentro: rawData.centroInvestigativo ? 'true' : 'false',
             centroInvestigativo: rawData.centroInvestigativo || '',
+            
             formaciones: Array.isArray(rawData.formaciones) && rawData.formaciones.length > 0
               ? rawData.formaciones
               : [{ nivel: '', titulo: '' }],
+            
             areas: Array.isArray(rawData.areas) && rawData.areas.length > 0
               ? rawData.areas
               : [{ nombre: '' }],
-            idiomas: Array.isArray(rawData.idiomas) ? rawData.idiomas.join(', ') : (rawData.idiomas || ''),
+              
+            idiomas: Array.isArray(rawData.idiomas) 
+              ? rawData.idiomas.map(i => `${i.idioma} (${i.nivel})`).join(', ')
+              : (rawData.idiomas || ''),
+              
             certificacionesNombres: Array.isArray(rawData.certificaciones)
               ? rawData.certificaciones.map(c => c.nombre || c)
               : [],
+              
             experienciaServicios: rawData.experienciaServicios || '',
-            proyectos: rawData.proyectosDestacados || '',
+            
+            // Corregido: En el JSON viene como "proyectos"
+            proyectos: Array.isArray(rawData.proyectos)
+              ? rawData.proyectos.map(p => p.nombre).join(', ')
+              : (rawData.proyectosDestacados || ''),
+              
             perfil: rawData.perfilProfesional || '',
+            
             competenciasTecnicas: Array.isArray(rawData.competenciasTecnicas) && rawData.competenciasTecnicas.length > 0
               ? rawData.competenciasTecnicas
               : [{ nombre: '', nivel: 1 }],
+              
             competenciasTransversales: Array.isArray(rawData.competenciasTransversales) && rawData.competenciasTransversales.length > 0
               ? rawData.competenciasTransversales
               : [{ nombre: '', nivel: 1 }],
-            redes: rawData.redesProfesionales || '',
+              
             servicios: Array.isArray(rawData.servicios) && rawData.servicios.length > 0
               ? rawData.servicios
               : [{ nombre: '' }],
+              
+            // Corregido: En el JSON viene como "sectoresExperiencia"
             sectores: Array.isArray(rawData.sectoresExperiencia) && rawData.sectoresExperiencia.length > 0
               ? rawData.sectoresExperiencia
               : [{ nombre: '' }],
+              
             intereses: Array.isArray(rawData.intereses) && rawData.intereses.length > 0
               ? rawData.intereses
               : [{ nombre: '' }],
-            objetivo: rawData.objetivoProfesional || '',
+              
+            objetivo: rawData.objetivo || '',
+            cvlac: rawData.cvlac || '',
+            linkedin: rawData.linkedin || '',
+            googleScholar: rawData.googleScholar || '',
+            otraRed: rawData.otraRed || '',
+            
             areasEspecialidad: Array.isArray(rawData.areasEspecialidad) && rawData.areasEspecialidad.length > 0
               ? rawData.areasEspecialidad
               : [{ nombre: '' }],
+              
             deseaVincularse: 'true',
             autorizaDatos: 'true'
           };
+          
           reset(mappedData);
         }
       } catch (error) {
@@ -96,7 +154,7 @@ const PerfilWizard = () => {
       }
     };
     fetchProfileData();
-  }, [reset]);
+  }, [reset, authToken]);
 
   const submitFinal = async (data) => {
     setIsSubmitting(true);
@@ -185,8 +243,8 @@ const PerfilWizard = () => {
                   key={s.id}
                   onClick={() => setStep(s.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all font-bold text-sm ${step === s.id
-                      ? 'bg-primary text-white shadow-lg shadow-orange-500/30'
-                      : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400'
+                    ? 'bg-primary text-white shadow-lg shadow-orange-500/30'
+                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400'
                     }`}
                 >
                   <div className={`${step === s.id ? 'text-white' : 'text-slate-400'}`}>
