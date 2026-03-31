@@ -11,7 +11,14 @@ const Step3 = () => {
   useEffect(() => {
     const fetchCertificaciones = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/certificaciones`);
+        const cleanToken = (localStorage.getItem('token') || '').replace(/[\n\r"'\s]/g, '');
+        console.log("URL de la petición:", `${API_BASE_URL}/certificaciones`);
+        const response = await fetch(`${API_BASE_URL}/certificaciones`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + cleanToken
+          }
+        });
         if (response.ok) {
           const data = await response.json();
           const options = data.map(cert => ({
@@ -276,16 +283,18 @@ const Step3 = () => {
               render={({ field }) => {
                 const handleCreate = async (inputValue) => {
                   try {
-                    const token = localStorage.getItem('token');
+                    const cleanToken = (localStorage.getItem('token') || '').replace(/[\n\r"'\s]/g, '');
+                    console.log("URL de la petición:", `${API_BASE_URL}/certificaciones`);
+
                     const response = await fetch(`${API_BASE_URL}/certificaciones`, {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': 'Bearer ' + cleanToken
                       },
                       body: JSON.stringify({ nombre: inputValue })
                     });
-                    
+
                     if (response.ok) {
                       const data = await response.json();
                       const newOption = { label: data.nombre, value: data.nombre };
@@ -409,7 +418,7 @@ const Step3 = () => {
                   </div>
                   {errors.idiomas?.[index]?.idioma && <span className="text-red-500 text-[10px] font-bold uppercase block mt-1 ml-1">{errors.idiomas[index].idioma.message}</span>}
                 </div>
-                
+
                 <div className="w-48 relative">
                   <select
                     {...register(`idiomas.${index}.nivel`, { required: 'El nivel es requerido' })}

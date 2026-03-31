@@ -15,8 +15,14 @@ const NetworkingSearch = () => {
     useEffect(() => {
         const fetchUsuarios = async () => {
             try {
+                const cleanToken = (localStorage.getItem('token') || '').replace(/[\n\r"'\s]/g, '');
+                
                 // Adjust the endpoint if necessary. Assuming GET /api/v1/usuarios returns the list.
-                const response = await fetch(`${API_BASE_URL}/usuarios`);
+                const response = await fetch(`${API_BASE_URL}/usuarios`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + cleanToken
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Error al obtener la lista de usuarios.');
                 }

@@ -9,31 +9,24 @@ export const AuthProvider = ({ children }) => {
     const [role, setRole] = useState(localStorage.getItem('role'));
 
     useEffect(() => {
-        if (token) {
-            try {
-                const decoded = jwtDecode(token);
-                // Validar si el token ha expirado
-                const currentTime = Date.now() / 1000;
-                if (decoded.exp < currentTime) {
-                    logout();
-                } else {
-                    // Verificar que el rol coincida con el claim (si existe)
-                    // Buscamos campos comunes: rol, role, roles
-                    const tokenRole = decoded.rol || decoded.role || decoded.roles;
-                    
-                    if (tokenRole && role && tokenRole !== role) {
-                        console.warn('Role mismatch detected between token and storage');
-                    }
-                    
-                    setUser({ 
-                        email: localStorage.getItem('userEmail'), 
-                        id: localStorage.getItem('userId') 
-                    });
-                }
-            } catch (error) {
-                console.error('Error al decodificar el token:', error);
-                logout();
+        if (!token) {
+            setUser(null);
+            return;
+        }
+        try {
+            const decoded = jwtDecode(token);
+            // Validar si el token ha expirado
+            const currentTime = Date.now() / 1000;
+            if (decoded.exp < currentTime) {
+                setUser(null);
+            } else {
+                setUser({ 
+                    email: localStorage.getItem('userEmail'), 
+                    id: localStorage.getItem('userId') 
+                });
             }
+        } catch (error) {
+            setUser(null);
         }
     }, [token, role]);
 
@@ -57,8 +50,8 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('userEmail');
     };
 
-    const isAdmin = () => role === 'admin';
-    const isProfesor = () => role === 'profesor';
+    const isAdmin = () => role && (String(role).toUpperCase() === 'ROLE_ADMIN' || String(role).toUpperCase() === 'ADMIN');
+    const isProfesor = () => role && (String(role).toUpperCase() === 'ROLE_PROFESOR' || String(role).toUpperCase() === 'PROFESOR');
 
     return (
         <AuthContext.Provider value={{ user, token, role, login, logout, isAdmin, isProfesor }}>

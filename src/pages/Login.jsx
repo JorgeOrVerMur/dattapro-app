@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { API_BASE_URL } from '../config/api';
+import { jwtDecode } from 'jwt-decode';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -37,13 +38,20 @@ const Login = () => {
             const data = await response.json();
             
             if (data.token) {
-                // Guardar token y datos en el contexto (esto también maneja localStorage)
-                login(data.token, { id: data.userId, email: data.email }, data.rol);
+                const decoded = jwtDecode(data.token);
+                const exactRole = decoded.rol || decoded.role || decoded.roles || data.rol;
+
+                // Normalizar rol a mayúsculas
+                let roleToSave = String(exactRole).toUpperCase();
+                if (roleToSave === 'PROFESOR') roleToSave = 'ROLE_PROFESOR';
+
+                // Guardar token y datos en el contexto usando el rol del token
+                login(data.token, { id: data.userId, email: data.email }, roleToSave);
                 
-                // Redirección condicional según el rol
-                if (data.rol === 'admin') {
+                // Redirección condicional según el rol (insensible a mayúsculas/minúsculas)
+                if (roleToSave === 'ROLE_ADMIN' || roleToSave === 'ADMIN') {
                     navigate('/admin');
-                } else if (data.rol === 'profesor') {
+                } else if (roleToSave === 'ROLE_PROFESOR' || roleToSave === 'PROFESOR') {
                     navigate('/perfil');
                 } else {
                     // Redirección por defecto para otros roles
