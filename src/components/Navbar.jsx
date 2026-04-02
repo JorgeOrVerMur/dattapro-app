@@ -5,6 +5,19 @@ import { useAuth } from '../context/AuthContext';
 const Navbar = () => {
     const { logout, role, user } = useAuth();
     const navigate = useNavigate();
+    
+    // Mapeo de roles para una vista más estética
+    const roleLabels = {
+        'ROLE_ADMIN': 'Administrador',
+        'ADMIN': 'Administrador',
+        'ROLE_PROFESOR': 'Investigador / Profesor',
+        'PROFESOR': 'Investigador / Profesor',
+        'ROLE_DIRECTIVO': 'Directivo',
+        'DIRECTIVO': 'Directivo'
+    };
+
+    const displayRole = roleLabels[String(role).toUpperCase()] || 'Investigador';
+    const displayName = user?.name || user?.email || 'Usuario';
 
     const handleLogout = () => {
         logout();
@@ -30,16 +43,16 @@ const Navbar = () => {
             <div className="flex items-center space-x-6">
                 <div className="hidden md:flex flex-col text-right">
                     <span className="text-xs font-bold text-slate-900 truncate max-w-[150px]">
-                        {user?.email || 'Usuario'}
+                        {displayName}
                     </span>
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-0.5">
-                        {role || 'Investigador'}
+                        {displayRole}
                     </span>
                 </div>
 
                 <div className="h-10 w-10 rounded-full border-2 border-slate-200 overflow-hidden bg-slate-100 flex-shrink-0">
                     <img 
-                        src={`https://ui-avatars.com/api/?name=${user?.email || 'User'}&background=ec5b13&color=fff`} 
+                        src={`https://ui-avatars.com/api/?name=${displayName}&background=ec5b13&color=fff`} 
                         alt="Avatar" 
                         className="w-full h-full object-cover"
                     />

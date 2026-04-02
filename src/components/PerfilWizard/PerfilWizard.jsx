@@ -10,7 +10,7 @@ import Step4 from './Step4';
 
 const PerfilWizard = () => {
   const navigate = useNavigate();
-  const { logout, token: authToken } = useAuth();
+  const { logout, token: authToken, updateUser } = useAuth();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -73,6 +73,14 @@ const PerfilWizard = () => {
 
         if (response.ok) {
           const rawData = await response.json();
+
+          // Sincronizar nombre en el contexto global
+          if (rawData.nombres) {
+            updateUser({ 
+              name: `${rawData.nombres} ${rawData.apellidos || ''}`.trim(),
+              email: rawData.correoInstitucional 
+            });
+          }
 
           const mappedData = {
             nombre: rawData.nombres || '',
@@ -180,7 +188,7 @@ const PerfilWizard = () => {
         if (!val && val !== 0 && val !== '0') return null;
         if (!isNaN(val) && typeof val !== 'boolean') return parseInt(val);
         const maps = {
-           // Basic Dropdowns
+          // Basic Dropdowns
           tipoDocumento: { "Cédula de ciudadanía": 1, "Cédula de extranjería": 2, "Pasaporte": 3, "Permiso Especial de Permanencia (PEP)": 4, "Permiso por Protección Temporal (PPT)": 5, "Otro": 6 },
           sede: { "Cúcuta": 1, "Barranquilla": 2 },
           facultad: { "Administración y Negocios": 1, "Ciencias Básicas y Biomédicas": 2, "Ciencias Jurídicas y Sociales": 3, "Ciencias de la Salud": 4, "Ingenierías": 5, "Facultad de Administración y Negocios": 1, "Facultad de Ciencias Básicas y Biomédicas": 2, "Facultad de Ciencias Jurídicas y Sociales": 3, "Facultad de Ciencias de la Salud": 4, "Facultad de Ingenierías": 5 },
@@ -188,7 +196,7 @@ const PerfilWizard = () => {
           centroInvestigativo: { "Adaptia": 1, "AudacIA": 2, "MACONDOLAB": 3, "CICV": 4, "CIISO": 5, "CIEF": 6 },
           tipoVinculacion: { "Tiempo Completo": 1, "Medio Tiempo": 2, "Planta tiempo completo": 3, "Planta medio tiempo": 4, "Catedratico": 5, "Catedrático": 5 },
           nivelFormacion: { "Pregrado": 1, "Especialización": 2, "Maestría": 3, "Doctorado": 4, "Postdoctorado": 5 },
-          
+
           // Arrays mappings
           areasConocimiento: { "Agronomía, Veterinaria y afines": 1, "Bellas Artes": 2, "Ciencias de la Educación": 3, "Ciencias de la Salud": 4, "Ciencias Sociales y Humanas": 5, "Economía, Administración, Contaduría y afines": 6, "Ingeniería, Arquitectura, Urbanismo y afines": 7, "Matemáticas y Ciencias Naturales": 8 },
           areasEspecialidad: { "Educación": 1, "Salud": 2, "Industria": 3, "TIC / Software": 4, "Emprendimiento": 5, "Finanzas / Contabilidad": 6, "Derecho / Normativo": 7, "Energía / Sostenibilidad": 8, "Agroindustria": 9, "Economía popular y comunitaria": 10, "Logística y comercio": 11 },
@@ -196,10 +204,10 @@ const PerfilWizard = () => {
           servicios: { "Consultoría técnica": 1, "Asesoría estratégica": 2, "Formación / Talleres / Docencia": 3, "Mentoría / Coaching": 4, "Desarrollo tecnológico": 5, "Investigación aplicada": 6, "Diagnósticos y estudios": 7, "Contenidos digitales": 8, "Auditoría": 9, "Gestión de proyectos": 10, "Comercial / Marketing": 11, "Logística / Operaciones": 12, "Legal / Normativo": 13 },
           sectores: { "Público": 1, "Privado": 2, "Academia / Investigación": 3, "Internacional": 4, "Social / Comunitario": 5, "ONG / Sin fines de lucro": 6, "Cooperativismo / Economía Solidaria": 7 },
           intereses: { "Ofertas comerciales para empresas": 1, "Formular y ejecutar proyectos I+D+i": 2, "Realizar mentorías": 3, "Desarrollar capacitaciones": 4, "Consultoría": 5, "Transferencia tecnológica": 6 },
-          
+
           competenciasTecnicas: { "Gestión de proyectos": 1, "Análisis de datos": 2, "Marketing digital": 3, "Desarrollo tecnológico": 4, "Propiedad intelectual": 5, "Power BI / SPSS / Data Tools": 6 },
           competenciasTransversales: { "Comunicación efectiva": 1, "Trabajo colaborativo": 2, "Adaptabilidad": 3, "Liderazgo": 4, "Orientación a resultados": 5 },
-          
+
           idiomas: { "Español": 1, "Inglés": 2, "Portugués": 3, "Francés": 4 },
           nivelesIdioma: { "A1": 0, "A2": 1, "B1": 3, "B2": 4, "C1": 5, "C2": 6, "Nativo": 7 }
         };
@@ -234,9 +242,9 @@ const PerfilWizard = () => {
           tituloFormacion: data.formaciones?.[0]?.titulo || null,
           areasIds: mapArrayIds('areasConocimiento', data.areas),
           idiomas: (data.idiomas || [])
-            .map(i => ({ 
-              idiomaId: mapId('idiomas', typeof i === 'object' ? i.idioma : null), 
-              nivelId: mapId('nivelesIdioma', typeof i === 'object' ? i.nivel : null) 
+            .map(i => ({
+              idiomaId: mapId('idiomas', typeof i === 'object' ? i.idioma : null),
+              nivelId: mapId('nivelesIdioma', typeof i === 'object' ? i.nivel : null)
             }))
             .filter(i => i.idiomaId !== null && i.nivelId !== null),
           certificacionesNombres: getArray(data.certificacionesNombres)
@@ -378,9 +386,9 @@ const PerfilWizard = () => {
 
           {/* Header */}
           <div className="mb-10">
-            <h1 className="text-4xl font-black text-slate-900 mb-3 tracking-tight">Edit Profile</h1>
+            <h1 className="text-4xl font-black text-slate-900 mb-3 tracking-tight">Editar Perfil</h1>
             <p className="text-lg font-medium text-slate-500 leading-relaxed">
-              Manage your professional identity and credentials across the datta network.
+              Gestiona tu identidad profesional y tus credenciales en toda la red de datos.
             </p>
           </div>
 

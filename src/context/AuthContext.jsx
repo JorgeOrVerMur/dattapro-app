@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [role, setRole] = useState(localStorage.getItem('role'));
+    const [userName, setUserName] = useState(localStorage.getItem('userName'));
 
     useEffect(() => {
         if (!token) {
@@ -20,9 +21,13 @@ export const AuthProvider = ({ children }) => {
             if (decoded.exp < currentTime) {
                 setUser(null);
             } else {
+                const storedEmail = localStorage.getItem('userEmail');
+                const storedName = localStorage.getItem('userName');
+                
                 setUser({ 
-                    email: localStorage.getItem('userEmail'), 
-                    id: localStorage.getItem('userId') 
+                    email: storedEmail !== 'undefined' ? storedEmail : null, 
+                    id: localStorage.getItem('userId'),
+                    name: storedName !== 'undefined' ? storedName : null
                 });
             }
         } catch (error) {
@@ -34,27 +39,40 @@ export const AuthProvider = ({ children }) => {
         setToken(newToken);
         setRole(newRole);
         setUser(userData);
+        setUserName(userData.name || null);
         localStorage.setItem('token', newToken);
         localStorage.setItem('role', newRole);
         localStorage.setItem('userId', userData.id);
         localStorage.setItem('userEmail', userData.email);
+        if (userData.name) localStorage.setItem('userName', userData.name);
+    };
+
+    const updateUser = (data) => {
+        setUser(prev => ({ ...prev, ...data }));
+        if (data.email) localStorage.setItem('userEmail', data.email);
+        if (data.name) {
+            localStorage.setItem('userName', data.name);
+            setUserName(data.name);
+        }
     };
 
     const logout = () => {
         setToken(null);
         setRole(null);
         setUser(null);
+        setUserName(null);
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         localStorage.removeItem('userId');
         localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
     };
 
     const isAdmin = () => role && (String(role).toUpperCase() === 'ROLE_ADMIN' || String(role).toUpperCase() === 'ADMIN');
     const isProfesor = () => role && (String(role).toUpperCase() === 'ROLE_PROFESOR' || String(role).toUpperCase() === 'PROFESOR');
 
     return (
-        <AuthContext.Provider value={{ user, token, role, login, logout, isAdmin, isProfesor }}>
+        <AuthContext.Provider value={{ user, token, role, login, logout, isAdmin, isProfesor, updateUser }}>
             {children}
         </AuthContext.Provider>
     );
