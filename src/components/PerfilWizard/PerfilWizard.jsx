@@ -76,9 +76,9 @@ const PerfilWizard = () => {
 
           // Sincronizar nombre en el contexto global
           if (rawData.nombres) {
-            updateUser({ 
+            updateUser({
               name: `${rawData.nombres} ${rawData.apellidos || ''}`.trim(),
-              email: rawData.correoInstitucional 
+              email: rawData.correoInstitucional
             });
           }
 
@@ -208,7 +208,7 @@ const PerfilWizard = () => {
           competenciasTecnicas: { "Gestión de proyectos": 1, "Análisis de datos": 2, "Marketing digital": 3, "Desarrollo tecnológico": 4, "Propiedad intelectual": 5, "Power BI / SPSS / Data Tools": 6 },
           competenciasTransversales: { "Comunicación efectiva": 1, "Trabajo colaborativo": 2, "Adaptabilidad": 3, "Liderazgo": 4, "Orientación a resultados": 5 },
 
-          idiomas: { "Español": 1, "Inglés": 2, "Portugués": 3, "Francés": 4 },
+          idiomas: { "Inglés": 1, "Español": 2, "Francés": 3, "Alemán": 4, "Italiano": 5, "Portugués": 6, "Mandarín": 7, "Japonés": 8, "Otro": 9 },
           nivelesIdioma: { "A1": 0, "A2": 1, "B1": 3, "B2": 4, "C1": 5, "C2": 6, "Nativo": 7 }
         };
         const mapped = maps[mapName]?.[String(val).trim()];
@@ -279,10 +279,11 @@ const PerfilWizard = () => {
           otraRed: data.otraRed || ''
         },
 
+        areasEspecialidad: (data.areasEspecialidad || []).filter(a => a.nombre),
+
         intereses: {
           serviciosIds: mapArrayIds('servicios', data.servicios),
           experienciaServicios: data.experienciaServicios || '',
-          areasEspecialidadIds: mapArrayIds('areasEspecialidad', data.areasEspecialidad),
           sectoresIds: mapArrayIds('sectores', data.sectores),
           quiereParticipar: data.quiereParticipar === 'true' || data.quiereParticipar === true || data.colaborativos === 'true' || data.colaborativos === true,
           quiereLiderar: data.quiereLiderar === 'true' || data.quiereLiderar === true || data.liderar === 'true' || data.liderar === true,
