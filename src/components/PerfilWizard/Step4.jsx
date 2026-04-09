@@ -282,7 +282,7 @@ const Step4 = () => {
           </div>
           <div>
             <h2 className="text-2xl font-black text-slate-800 tracking-tight">Proyección y Objetivos</h2>
-            <p className="text-sm text-slate-500 font-medium leading-none mt-1">¿Qué buscas lograr en la red?</p>
+            <p className="text-sm text-slate-500 font-medium leading-none mt-1">¿Qué espera lograr al vincularse a la Red de Colaboración Institucional?</p>
           </div>
         </div>
 
