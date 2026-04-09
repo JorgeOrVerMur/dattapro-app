@@ -14,12 +14,16 @@ import Sidebar from './components/Sidebar';
 // Layout Component to handle persistent Navbar and Sidebar
 const AppLayout = ({ children }) => {
   const location = useLocation();
-  
-  // Don't show Navbar/Sidebar on auth pages
-  const hideLayout = ['/login', '/register'].includes(location.pathname) || 
-                     (location.pathname === '/' && !localStorage.getItem('token'));
 
-  if (hideLayout) {
+  // MODIFICACIÓN: Usamos .includes o verificamos el final del path 
+  // para que funcione con o sin el prefijo del servidor
+  const isAuthPage = location.pathname.endsWith('/login') ||
+    location.pathname.endsWith('/register');
+
+  const isRootWithoutToken = (location.pathname === '/' || location.pathname === '/dattapro/')
+    && !localStorage.getItem('token');
+
+  if (isAuthPage || isRootWithoutToken) {
     return <main className="min-h-screen bg-slate-50 dark:bg-slate-900">{children}</main>;
   }
 
@@ -42,7 +46,8 @@ const RootRoute = () => {
 
 function App() {
   return (
-    <Router>
+    /* CAMBIO CRÍTICO: Añadir el basename aquí */
+    <Router basename="/dattapro">
       <AppLayout>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -50,7 +55,7 @@ function App() {
           <Route path="/network" element={<NetworkingSearch />} />
           <Route path="/perfil/ver/:id" element={<ProfileDetail />} />
           <Route path="/perfil" element={<PerfilWizard />} />
-          <Route path="/admin" element={<AdminUsers />} /> {/* Admin specific route */}
+          <Route path="/admin" element={<AdminUsers />} />
           <Route path="/convocatorias" element={<Convocatorias />} />
           <Route path="/" element={<RootRoute />} />
         </Routes>
