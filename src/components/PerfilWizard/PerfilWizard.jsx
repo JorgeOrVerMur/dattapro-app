@@ -51,7 +51,9 @@ const PerfilWizard = () => {
       idiomas: [{ idioma: '', nivel: '' }],
       foto: '',
       colaborativos: '0',
-      liderar: '0'
+      liderar: '0',
+      deseaVincularse: 'false',
+      autorizaDatos: 'false'
     },
     mode: 'onChange',
   });
@@ -162,8 +164,8 @@ const PerfilWizard = () => {
             liderar: rawData.liderar === true || rawData.liderar === 1 ? '1' : '0',
 
             foto: rawData.foto || '',
-            deseaVincularse: 'true',
-            autorizaDatos: 'true'
+            deseaVincularse: rawData.deseaVincularse === true || rawData.deseaVincularse === 'true' ? 'true' : 'false',
+            autorizaDatos: rawData.autorizaDatos === true || rawData.autorizaDatos === 'true' ? 'true' : 'false'
           };
 
           reset(mappedData);
