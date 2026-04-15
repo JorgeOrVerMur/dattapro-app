@@ -39,6 +39,9 @@ const NetworkingSearch = () => {
     }, []);
 
     const filteredUsuarios = usuarios.filter((usuario) => {
+        // Solo mostrar usuarios que autorizaron el tratamiento de datos
+        if (usuario.autorizaDatos !== true) return false;
+
         const fullName = `${usuario.nombres} ${usuario.apellidos}`.toLowerCase();
         return fullName.includes(searchTerm.toLowerCase()) ||
             (usuario.correoInstitucional && usuario.correoInstitucional.toLowerCase().includes(searchTerm.toLowerCase()));
