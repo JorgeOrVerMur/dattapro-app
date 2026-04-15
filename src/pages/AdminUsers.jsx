@@ -195,12 +195,20 @@ const AdminUsers = () => {
                                             <p className="text-base font-bold text-slate-900 dark:text-white truncate">
                                                 {usuario.nombres} {usuario.apellidos}
                                             </p>
-                                            <div className="flex items-center gap-2 mt-1">
+                                            <div className="flex flex-wrap items-center gap-2 mt-1">
                                                 <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${usuario.rol === 'admin' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400' :
                                                     usuario.rol === 'directivo' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400' :
                                                         'bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-400'
                                                     }`}>
                                                     {usuario.rol || 'No asignado'}
+                                                </span>
+                                                {/* Indicador de Red (Networking) */}
+                                                <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${(usuario.deseaVincularse === true || usuario.deseaVincularse === 'true') ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}>
+                                                    Red: {(usuario.deseaVincularse === true || usuario.deseaVincularse === 'true') ? 'Sí' : 'No'}
+                                                </span>
+                                                {/* Indicador de Autorización de Datos */}
+                                                <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${(usuario.autorizaDatos === true || usuario.autorizaDatos === 'true') ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}>
+                                                    Datos: {(usuario.autorizaDatos === true || usuario.autorizaDatos === 'true') ? 'Sí' : 'No'}
                                                 </span>
                                             </div>
                                         </div>
@@ -247,6 +255,16 @@ const AdminUsers = () => {
                                             </div>
                                         </div>
                                     </div>
+                                    <button
+                                        onClick={() => navigate(`/perfil/ver/${usuario.id}`)}
+                                        className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-colors border bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/30 text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-900/40"
+                                    >
+                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                        Ver Perfil Completo
+                                    </button>
                                     <button
                                         onClick={() => handleDeleteUser(usuario.id)}
                                         disabled={usuario.rol === 'admin'}
