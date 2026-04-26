@@ -73,18 +73,18 @@ const MisConvocatorias = () => {
                 body: JSON.stringify(updatedConvocatoria)
             });
 
-            if (!response.ok) throw new Error('Error al actualizar el estado');
+            if (!response.ok) throw new Error('Error al actualizar el visible');
 
-            // Si fue exitoso, actualizamos el estado local permanentemente
-            setConvocatorias(prev => prev.map(c => 
+            // Si fue exitoso, actualizamos el visible local permanentemente
+            setConvocatorias(prev => prev.map(c =>
                 c.id === id ? { ...c, visible: updatedVisible } : c
             ));
         } catch (err) {
-            alert('No se pudo actualizar el estado: ' + err.message);
+            alert('No se pudo actualizar el visible: ' + err.message);
         }
     };
 
-    const filteredConvocatorias = convocatorias.filter(c => 
+    const filteredConvocatorias = convocatorias.filter(c =>
         c.titulo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         c.categoria?.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -104,8 +104,8 @@ const MisConvocatorias = () => {
                     <h1 className="text-3xl font-black text-slate-900 tracking-tight">Mis Convocatorias</h1>
                     <p className="text-slate-500 font-medium">Gestiona y publica tus oportunidades de investigación.</p>
                 </div>
-                
-                <button 
+
+                <button
                     onClick={() => navigate('/convocatorias/crear')}
                     className="flex items-center gap-2 px-6 py-3 bg-[#3db4ed] text-white rounded-2xl font-bold shadow-lg shadow-sky-500/20 hover:scale-105 active:scale-95 transition-all"
                 >
@@ -124,9 +124,9 @@ const MisConvocatorias = () => {
                 <div className="p-6 border-b border-slate-50 flex items-center gap-4 bg-slate-50/50">
                     <div className="relative flex-1 max-w-md">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                        <input 
-                            type="text" 
-                            placeholder="Buscar convocatoria..." 
+                        <input
+                            type="text"
+                            placeholder="Buscar convocatoria..."
                             className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-[#3db4ed]/20 transition-all text-sm"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -167,7 +167,7 @@ const MisConvocatorias = () => {
                                         </td>
                                         <td className="px-8 py-6">
                                             <div className="flex justify-center">
-                                                <button 
+                                                <button
                                                     onClick={() => toggleVisibility(convocatoria.id)}
                                                     className={`p-2 rounded-xl transition-all ${convocatoria.visible ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-400'}`}
                                                     title={convocatoria.visible ? 'Visible' : 'Oculto'}
@@ -178,13 +178,13 @@ const MisConvocatorias = () => {
                                         </td>
                                         <td className="px-8 py-6">
                                             <div className="flex items-center justify-end gap-2">
-                                                <button 
+                                                <button
                                                     onClick={() => navigate(`/convocatorias/editar/${convocatoria.id}`)}
                                                     className="p-2 text-slate-400 hover:text-[#3db4ed] hover:bg-sky-50 rounded-xl transition-all"
                                                 >
                                                     <Edit2 className="w-4 h-4" />
                                                 </button>
-                                                <button 
+                                                <button
                                                     onClick={() => handleDelete(convocatoria.id)}
                                                     className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                                                 >

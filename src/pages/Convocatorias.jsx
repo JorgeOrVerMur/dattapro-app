@@ -65,7 +65,7 @@ const Convocatorias = () => {
             <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-3">
                     {filterOptions.map((opt, i) => (
-                        <button 
+                        <button
                             key={i}
                             className="flex items-center gap-2.5 px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-semibold text-slate-700 hover:border-primary hover:text-primary transition-all shadow-sm hover:shadow-md active:scale-95"
                         >
@@ -94,19 +94,19 @@ const Convocatorias = () => {
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {convocatorias.map((item) => (
-                    <div 
-                        key={item.id} 
+                    <div
+                        key={item.id}
                         className="group bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 flex flex-col h-full"
                     >
                         {/* Image Section */}
                         <div className="relative h-56 overflow-hidden">
-                            <img 
-                                src={item.image} 
+                            <img
+                                src={item.image}
                                 alt={item.title}
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                            
+
                             {/* Badges */}
                             <div className="absolute top-4 left-4 flex flex-col gap-2">
                                 <div className="backdrop-blur-md bg-sky-500/80 text-white px-3 py-1.5 rounded-full text-[10px] font-black tracking-widest flex items-center gap-1.5 shadow-lg">
