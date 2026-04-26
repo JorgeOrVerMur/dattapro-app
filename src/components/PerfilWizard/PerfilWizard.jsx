@@ -53,7 +53,8 @@ const PerfilWizard = () => {
       colaborativos: '0',
       liderar: '0',
       deseaVincularse: 'false',
-      autorizaDatos: 'false'
+      autorizaDatos: 'false',
+      usuarioId: null
     },
     mode: 'onChange',
   });
@@ -164,8 +165,9 @@ const PerfilWizard = () => {
             liderar: rawData.liderar === true || rawData.liderar === 1 ? '1' : '0',
 
             foto: rawData.foto || '',
-            deseaVincularse: rawData.deseaVincularse === true || rawData.deseaVincularse === 'true' ? 'true' : 'false',
-            autorizaDatos: rawData.autorizaDatos === true || rawData.autorizaDatos === 'true' ? 'true' : 'false'
+            deseaVincularse: rawData.deseavincularse === true || rawData.deseavincularse === 'true' ? 'true' : 'false',
+            autorizaDatos: rawData.autorizadatos === true || rawData.autorizadatos === 'true' ? 'true' : 'false',
+            usuarioId: rawData.id || null
           };
 
           reset(mappedData);
@@ -232,12 +234,12 @@ const PerfilWizard = () => {
       };
 
       const formattedData = {
-        deseaVincularse: data.deseaVincularse === 'true' || data.deseaVincularse === true,
-        autorizaDatos: data.autorizaDatos === 'true' || data.autorizaDatos === true,
-
+        usuarioId: data.usuarioId,
         datosBasicos: {
           nombre: data.nombre,
           apellidos: data.apellidos,
+          deseavincularse: data.deseaVincularse === 'true' || data.deseaVincularse === true,
+          autorizadatos: data.autorizaDatos === 'true' || data.autorizaDatos === true,
           tipoDocumentoId: mapId('tipoDocumento', data.tipoDocumento),
           numeroIdentificacion: data.documento || null,
           correo: data.correo || null,
