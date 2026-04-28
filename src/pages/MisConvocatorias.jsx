@@ -84,6 +84,42 @@ const MisConvocatorias = () => {
         }
     };
 
+    const handleStatusChange = async (id, newStatus) => {
+        const convocatoria = convocatorias.find(c => c.id === id);
+        if (!convocatoria) return;
+
+        const updatedConvocatoria = { ...convocatoria, estado: newStatus };
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/convocatorias/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(updatedConvocatoria)
+            });
+
+            if (!response.ok) throw new Error('Error al actualizar el estado');
+
+            setConvocatorias(prev => prev.map(c =>
+                c.id === id ? { ...c, estado: newStatus } : c
+            ));
+        } catch (err) {
+            alert('No se pudo actualizar el estado: ' + err.message);
+        }
+    };
+
+    const getStatusStyles = (status) => {
+        switch (status) {
+            case 'Abierta': return 'bg-emerald-50 text-emerald-600 border-emerald-100 focus:ring-emerald-500/20';
+            case 'Cerrada': return 'bg-red-50 text-red-600 border-red-100 focus:ring-red-500/20';
+            case 'Evaluando': return 'bg-amber-50 text-amber-600 border-amber-100 focus:ring-amber-500/20';
+            case 'Finalizada': return 'bg-slate-100 text-slate-600 border-slate-200 focus:ring-slate-500/20';
+            default: return 'bg-slate-50 text-slate-400 border-slate-100 focus:ring-slate-500/20';
+        }
+    };
+
     const filteredConvocatorias = convocatorias.filter(c =>
         c.titulo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         c.categoria?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -141,6 +177,7 @@ const MisConvocatorias = () => {
                                 <th className="px-8 py-5">Convocatoria</th>
                                 <th className="px-8 py-5">Categoría</th>
                                 <th className="px-8 py-5">Fechas (Inicio / Fin)</th>
+                                <th className="px-8 py-5 text-center">Estado</th>
                                 <th className="px-8 py-5 text-center">Visibilidad</th>
                                 <th className="px-8 py-5 text-right">Acciones</th>
                             </tr>
@@ -163,6 +200,20 @@ const MisConvocatorias = () => {
                                             <div className="flex flex-col gap-1">
                                                 <span><span className="text-slate-400">Desde:</span> {convocatoria.fechaInicio}</span>
                                                 <span><span className="text-slate-400">Hasta:</span> {convocatoria.fechaLimite}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-8 py-6">
+                                            <div className="flex justify-center">
+                                                <select
+                                                    value={convocatoria.estado || 'Abierta'}
+                                                    onChange={(e) => handleStatusChange(convocatoria.id, e.target.value)}
+                                                    className={`px-3 py-1.5 border rounded-xl text-[11px] font-black uppercase tracking-wider outline-none focus:ring-4 transition-all cursor-pointer ${getStatusStyles(convocatoria.estado)}`}
+                                                >
+                                                    <option value="Abierta">Abierta</option>
+                                                    <option value="Cerrada">Cerrada</option>
+                                                    <option value="Evaluando">Evaluando</option>
+                                                    <option value="Finalizada">Finalizada</option>
+                                                </select>
                                             </div>
                                         </td>
                                         <td className="px-8 py-6">
@@ -196,7 +247,7 @@ const MisConvocatorias = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="5" className="px-8 py-12 text-center text-slate-400 font-medium italic">
+                                    <td colSpan="6" className="px-8 py-12 text-center text-slate-400 font-medium italic">
                                         No se encontraron convocatorias.
                                     </td>
                                 </tr>
