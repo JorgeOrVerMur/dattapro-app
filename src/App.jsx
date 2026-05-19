@@ -12,6 +12,7 @@ import ConvocatoriasDetalles from './pages/ConvocatoriasDetalles';
 import MisConvocatorias from './pages/MisConvocatorias';
 import ConvocatoriaForm from './pages/ConvocatoriaForm';
 import CambioPasswordView from './pages/CambioPasswordView';
+import GestionDatosMaestros from './pages/GestionDatosMaestros';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 
@@ -66,6 +67,7 @@ function App() {
           <Route path="/convocatorias/crear" element={<ConvocatoriaForm />} />
           <Route path="/convocatorias/editar/:id" element={<ConvocatoriaForm />} />
           <Route path="/seguridad" element={<CambioPasswordView />} />
+          <Route path="/admin/datos-maestros" element={<GestionDatosMaestros />} />
           <Route path="/" element={<RootRoute />} />
         </Routes>
       </AppLayout>

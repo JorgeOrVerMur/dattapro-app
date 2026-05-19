@@ -71,6 +71,15 @@ const Sidebar = () => {
                 </svg>
             )
         });
+        navItems.push({
+            label: 'Gestion Listas',
+            path: '/admin/datos-maestros',
+            icon: (
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 7c0-1.657 3.582-3 8-3s8 1.343 8 3M4 7v5c0 1.657 3.582 3 8 3s8-1.343 8-3V7M4 7c0 1.657 3.582 3 8 3s8-1.343 8-3m0 10c0 1.657-3.582 3-8 3s-8-1.343-8-3v-5" />
+                </svg>
+            )
+        });
     }
 
     return (
