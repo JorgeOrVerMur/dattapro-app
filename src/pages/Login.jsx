@@ -112,9 +112,9 @@ const Login = () => {
                         <h1 className="text-4xl font-black leading-tight tracking-tight text-slate-900 dark:text-slate-100 mb-2">
                             Bienvenido
                         </h1>
-                        <p className="text-base text-slate-500 dark:text-slate-400">
+                        {/*<p className="text-base text-slate-500 dark:text-slate-400">
                             Conéctate con investigadores de todo el mundo y acelera tus descubrimientos.
-                        </p>
+                        </p>*/}
                     </div>
 
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
@@ -143,11 +143,11 @@ const Login = () => {
                                     <label className="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100" htmlFor="password">
                                         Contraseña
                                     </label>
-                                    <div className="text-sm">
+                                    {/*<div className="text-sm">
                                         <a className="font-semibold text-primary hover:opacity-80 transition-opacity" href="#">
                                             ¿Olvidó su contraseña?
                                         </a>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="mt-2 relative">
                                     <input

@@ -86,13 +86,13 @@ const Register = () => {
                                     <path d="M12 2L2 7l10 5l10-5l-10-5zM2 17l10 5l10-5M2 12l10 5l10-5" />
                                 </svg>
                             </div>
-                            <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">dattapro-app</h2>
+                            <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Dattapro</h2>
                         </div>
 
                         {/* Header */}
                         <div className="mb-10 text-center">
                             <h1 className="text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-3">Crea tu cuenta</h1>
-                            <p className="text-slate-500 dark:text-slate-400 text-lg">Comienza tu viaje en la red global de investigadores.</p>
+                            <p className="text-slate-500 dark:text-slate-400 text-lg">Comienza tu viaje en la red Unisimón de investigadores.</p>
                         </div>
 
                         {/* Error Message */}
