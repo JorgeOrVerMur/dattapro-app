@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../config/api';
-import { Calendar, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Calendar, ChevronDown, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import techImg from '../assets/convocatorias/tech.png';
 
 const Convocatorias = () => {
@@ -11,6 +11,8 @@ const Convocatorias = () => {
     const [error, setError] = useState(null);
 
     const [selectedYearMonth, setSelectedYearMonth] = useState('');
+    const [selectedCategoryId, setSelectedCategoryId] = useState('');
+    const [selectedSectorId, setSelectedSectorId] = useState('');
     const [showClosed, setShowClosed] = useState(false);
     
     // Custom picker states
@@ -91,6 +93,45 @@ const Convocatorias = () => {
 
     const currentYear = new Date().getFullYear();
 
+    // Extraer categorías únicas de las convocatorias cargadas
+    const categories = Array.from(
+        new Map(
+            convocatorias
+                .map(item => {
+                    const id = item.categoriaId || (typeof item.categoria === 'object' ? item.categoria?.id : null);
+                    const nombre = typeof item.categoria === 'object' ? item.categoria?.nombre : item.categoria;
+                    return { id, nombre };
+                })
+                .filter(cat => cat.id && cat.nombre)
+                .map(cat => [cat.id, cat])
+        ).values()
+    );
+
+    // Extraer sectores únicos de las convocatorias cargadas
+    const sectors = Array.from(
+        new Map(
+            convocatorias
+                .flatMap(item => {
+                    const itemSectores = item.sectores || [];
+                    const itemSectoresIds = item.sectoresIds || [];
+                    
+                    return itemSectores.map((sec, idx) => {
+                        let id, nombre;
+                        if (typeof sec === 'object' && sec !== null) {
+                            id = sec.id;
+                            nombre = sec.nombre;
+                        } else {
+                            id = itemSectoresIds[idx];
+                            nombre = sec;
+                        }
+                        return { id, nombre };
+                    });
+                })
+                .filter(sec => sec.id && sec.nombre)
+                .map(sec => [sec.id, sec])
+        ).values()
+    );
+
     const filteredConvocatorias = convocatorias.filter(item => {
         const status = calculateStatus(item.fechaInicio, item.fechaLimite);
         
@@ -101,6 +142,21 @@ const Convocatorias = () => {
             // The item.fechaLimite is assumed YYYY-MM-DD
             const prefix = item.fechaLimite.substring(0, 7); // "YYYY-MM"
             if (prefix !== selectedYearMonth) return false;
+        }
+
+        if (selectedCategoryId) {
+            const itemCategoryId = item.categoriaId || (typeof item.categoria === 'object' ? item.categoria?.id : null);
+            if (!itemCategoryId || String(itemCategoryId) !== String(selectedCategoryId)) return false;
+        }
+
+        if (selectedSectorId) {
+            const itemSectoresIds = item.sectoresIds || (
+                Array.isArray(item.sectores) 
+                    ? item.sectores.map(sec => typeof sec === 'object' && sec !== null ? sec.id : null).filter(Boolean)
+                    : []
+            );
+            const hasSector = itemSectoresIds.some(id => String(id) === String(selectedSectorId));
+            if (!hasSector) return false;
         }
 
         return true;
@@ -192,6 +248,52 @@ const Convocatorias = () => {
                         )}
                     </div>
 
+                    {/* Filtro de Categoría */}
+                    <div className="flex flex-col relative">
+                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 px-1">Categoría</label>
+                        <div className="relative w-56">
+                            <select
+                                id="categoria-select"
+                                value={selectedCategoryId}
+                                onChange={(e) => setSelectedCategoryId(e.target.value)}
+                                className="block w-full pl-4 pr-10 py-2.5 text-sm font-bold text-slate-700 bg-slate-50 border border-slate-200 hover:border-primary/50 rounded-2xl transition-all appearance-none cursor-pointer outline-none"
+                            >
+                                <option value="" className="text-slate-700 bg-white font-bold">Todas las categorías</option>
+                                {categories.map(cat => (
+                                    <option key={cat.id} value={cat.id} className="text-slate-700 bg-white font-semibold">
+                                        {cat.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                                <ChevronDown className="w-4 h-4" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Filtro de Sector */}
+                    <div className="flex flex-col relative">
+                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 px-1">Sector</label>
+                        <div className="relative w-56">
+                            <select
+                                id="sector-select"
+                                value={selectedSectorId}
+                                onChange={(e) => setSelectedSectorId(e.target.value)}
+                                className="block w-full pl-4 pr-10 py-2.5 text-sm font-bold text-slate-700 bg-slate-50 border border-slate-200 hover:border-primary/50 rounded-2xl transition-all appearance-none cursor-pointer outline-none"
+                            >
+                                <option value="" className="text-slate-700 bg-white font-bold">Todos los sectores</option>
+                                {sectors.map(sec => (
+                                    <option key={sec.id} value={sec.id} className="text-slate-700 bg-white font-semibold">
+                                        {sec.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                                <ChevronDown className="w-4 h-4" />
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="flex flex-col justify-end h-full mt-5">
                         <label className="flex items-center cursor-pointer gap-2 bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-2xl hover:border-primary/50 transition-colors">
                             <input 
@@ -253,9 +355,9 @@ const Convocatorias = () => {
                                     </h3>
 
                                     <div className="flex flex-wrap gap-2 mb-6">
-                                        {item.categoria?.nombre && (
+                                        {((typeof item.categoria === 'object' ? item.categoria?.nombre : item.categoria) || item.categoria) && (
                                             <span className="text-[10px] font-bold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-lg border border-orange-100 uppercase">
-                                                {item.categoria.nombre}
+                                                {typeof item.categoria === 'object' ? item.categoria.nombre : item.categoria}
                                             </span>
                                         )}
                                         {item.keywords?.slice(0, 2).map(tag => (
