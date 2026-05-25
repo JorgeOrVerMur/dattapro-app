@@ -14,29 +14,80 @@ const DashboardContent = () => {
     const exportToCSV = () => {
         if (!filteredUsuarios.length) return;
 
-        // Basic CSV Export
-        const headers = ['Nombre Completo', 'Correo', 'Programa Académico', 'Facultad', 'Sectores', 'Competencias'];
+        const headers = [
+            'Nombre Completo',
+            'Nombres',
+            'Apellidos',
+            'Correo Institucional',
+            'Programa Académico',
+            'Facultad',
+            'Ciudad',
+            'Sectores de Experiencia',
+            'Competencias Técnicas',
+            'Competencias Transversales',
+            'Idiomas',
+            'Rol',
+            'Estado del Formulario',
+            'Desea Vincularse',
+            'Autoriza Tratamiento de Datos'
+        ];
+
+        const escapeCSVValue = (val) => {
+            if (val === null || val === undefined) return '';
+            
+            // If it is an array (e.g. sectors, competencies, languages), join elements with a separator
+            if (Array.isArray(val)) {
+                return val.join('; ');
+            }
+            
+            // Convert boolean to user-friendly Spanish text
+            if (typeof val === 'boolean') {
+                return val ? 'Sí' : 'No';
+            }
+            
+            return String(val).trim();
+        };
+
+        const formatCSVRow = (rowArray) => {
+            return rowArray.map(val => {
+                const escaped = escapeCSVValue(val).replace(/"/g, '""');
+                return `"${escaped}"`;
+            }).join(',');
+        };
+
         const csvRows = [headers.join(',')];
 
         filteredUsuarios.forEach(u => {
-            const row = [
-                `"${u.nombreCompleto}"`,
-                `"${u.correoInstitucional}"`,
-                `"${u.programaAcademico || ''}"`,
-                `"${u.facultad || ''}"`,
-                `"${(u.sectoresExperiencia || []).join('; ')}"`,
-                `"${(u.competenciasTecnicas || []).join('; ')}"`
+            const rowData = [
+                u.nombreCompleto,
+                u.nombres,
+                u.apellidos,
+                u.correoInstitucional,
+                u.programaAcademico,
+                u.facultad,
+                u.ciudad,
+                u.sectoresExperiencia,
+                u.competenciasTecnicas,
+                u.competenciasTransversales,
+                u.idiomas,
+                u.rol ? u.rol.charAt(0).toUpperCase() + u.rol.slice(1) : '',
+                u.estadoFormulario ? u.estadoFormulario.charAt(0).toUpperCase() + u.estadoFormulario.slice(1) : '',
+                u.deseaVincularse,
+                u.autorizaDatos
             ];
-            csvRows.push(row.join(','));
+            csvRows.push(formatCSVRow(rowData));
         });
 
-        const csvString = csvRows.join('\n');
+        // Add UTF-8 BOM to ensure accents and special characters (ñ, á, é...) are rendered correctly in Excel/Windows
+        const csvString = '\uFEFF' + csvRows.join('\n');
+        
         const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         if (link.download !== undefined) {
             const url = URL.createObjectURL(blob);
+            const dateStr = new Date().toISOString().split('T')[0];
             link.setAttribute('href', url);
-            link.setAttribute('download', 'directorio_inteligente_export.csv');
+            link.setAttribute('download', `directorio_inteligente_export_${dateStr}.csv`);
             link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();

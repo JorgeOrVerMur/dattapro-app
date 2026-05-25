@@ -25,6 +25,7 @@ export const normalizeNetworkingData = (usuarios) => {
         const sectoresExperiencia = normalizeArray(usuario.sectoresExperiencia);
         const competenciasTecnicas = normalizeArray(usuario.competenciasTecnicas);
         const competenciasTransversales = normalizeArray(usuario.competenciasTransversales);
+        const idiomas = normalizeArray(usuario.idiomas, 'idioma');
 
         return {
             ...usuario,
@@ -36,6 +37,7 @@ export const normalizeNetworkingData = (usuarios) => {
             sectoresExperiencia,
             competenciasTecnicas,
             competenciasTransversales,
+            idiomas,
             // Provide fallbacks for UI
             programaAcademico: usuario.programaAcademico || '',
             correoInstitucional: usuario.correoInstitucional || '',

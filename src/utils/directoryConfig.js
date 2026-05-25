@@ -31,6 +31,11 @@ export const FILTER_CONFIG = [
         key: 'ciudad',
         label: 'Ciudad',
         type: 'select'
+    },
+    {
+        key: 'idiomas',
+        label: 'Idioma',
+        type: 'multi-select'
     }
 ];
 
