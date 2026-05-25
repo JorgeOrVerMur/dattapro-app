@@ -62,39 +62,28 @@ const ConvocatoriasDetalles = () => {
                 const convCompTec = normalizeList(convocatoria.competenciasTecnicas);
                 const convCompTrans = normalizeList(convocatoria.competenciasTransversales);
 
-                // 2. For each user, fetch profile and check matches
+                // 2. Match directly using fields now included in /usuarios response
                 const matches = [];
                 for (const usuario of usuarios) {
-                    try {
-                        const resPerfil = await fetch(`${API_BASE_URL}/usuarios/perfil/${usuario.id}`, {
-                            headers: { 'Authorization': 'Bearer ' + cleanToken }
+                    const userSectores = Array.isArray(usuario.sectoresExperiencia) ? usuario.sectoresExperiencia : [];
+                    const userCompTec = Array.isArray(usuario.competenciasTecnicas) ? usuario.competenciasTecnicas : [];
+                    const userCompTrans = Array.isArray(usuario.competenciasTransversales) ? usuario.competenciasTransversales : [];
+
+                    const matchedSectors = userSectores.filter(s => convSectores.includes((s.nombre || '').trim().toLowerCase()));
+                    const matchedCompTec = userCompTec.filter(c => convCompTec.includes((c.nombre || '').trim().toLowerCase()));
+                    const matchedCompTrans = userCompTrans.filter(c => convCompTrans.includes((c.nombre || '').trim().toLowerCase()));
+
+                    if (matchedSectors.length > 0 || matchedCompTec.length > 0 || matchedCompTrans.length > 0) {
+                        matches.push({
+                            id: usuario.id,
+                            nombres: usuario.nombres || '',
+                            apellidos: usuario.apellidos || '',
+                            foto: usuario.foto || null,
+                            facultad: usuario.facultad || '',
+                            matchedSectors: matchedSectors.map(s => s.nombre),
+                            matchedCompTec: matchedCompTec.map(c => c.nombre),
+                            matchedCompTrans: matchedCompTrans.map(c => c.nombre),
                         });
-                        if (!resPerfil.ok) continue;
-                        const perfil = await resPerfil.json();
-
-                        const userSectores = Array.isArray(perfil.sectoresExperiencia) ? perfil.sectoresExperiencia : [];
-                        const userCompTec = Array.isArray(perfil.competenciasTecnicas) ? perfil.competenciasTecnicas : [];
-                        const userCompTrans = Array.isArray(perfil.competenciasTransversales) ? perfil.competenciasTransversales : [];
-
-                        const matchedSectors = userSectores.filter(s => convSectores.includes((s.nombre || '').trim().toLowerCase()));
-                        const matchedCompTec = userCompTec.filter(c => convCompTec.includes((c.nombre || '').trim().toLowerCase()));
-                        const matchedCompTrans = userCompTrans.filter(c => convCompTrans.includes((c.nombre || '').trim().toLowerCase()));
-
-                        if (matchedSectors.length > 0 || matchedCompTec.length > 0 || matchedCompTrans.length > 0) {
-                            matches.push({
-                                id: usuario.id,
-                                nombres: perfil.nombres || usuario.nombres || '',
-                                apellidos: perfil.apellidos || usuario.apellidos || '',
-                                foto: perfil.foto || null,
-                                facultad: perfil.facultad || '',
-                                matchedSectors: matchedSectors.map(s => s.nombre),
-                                matchedCompTec: matchedCompTec.map(c => c.nombre),
-                                matchedCompTrans: matchedCompTrans.map(c => c.nombre),
-                            });
-                        }
-                    } catch (e) {
-                        // Skip users whose profile can't be fetched
-                        continue;
                     }
                 }
                 setMatchingProfiles(matches);

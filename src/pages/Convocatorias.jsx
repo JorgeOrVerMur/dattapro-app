@@ -13,6 +13,8 @@ const Convocatorias = () => {
     const [selectedYearMonth, setSelectedYearMonth] = useState('');
     const [selectedCategoryId, setSelectedCategoryId] = useState('');
     const [selectedSectorId, setSelectedSectorId] = useState('');
+    const [selectedCompTecnicaId, setSelectedCompTecnicaId] = useState('');
+    const [selectedCompTransversalId, setSelectedCompTransversalId] = useState('');
     const [showClosed, setShowClosed] = useState(false);
     
     // Custom picker states
@@ -132,6 +134,56 @@ const Convocatorias = () => {
         ).values()
     );
 
+    // Extraer competencias tecnicas unicas
+    const compTecnicas = Array.from(
+        new Map(
+            convocatorias
+                .flatMap(item => {
+                    const itemComps = item.competenciasTecnicas || [];
+                    const itemCompsIds = item.competenciasTecnicasIds || [];
+                    
+                    return itemComps.map((comp, idx) => {
+                        let id, nombre;
+                        if (typeof comp === 'object' && comp !== null) {
+                            id = comp.id;
+                            nombre = comp.nombre;
+                        } else {
+                            id = itemCompsIds[idx];
+                            nombre = comp;
+                        }
+                        return { id, nombre };
+                    });
+                })
+                .filter(comp => comp.id && comp.nombre)
+                .map(comp => [comp.id, comp])
+        ).values()
+    );
+
+    // Extraer competencias transversales unicas
+    const compTransversales = Array.from(
+        new Map(
+            convocatorias
+                .flatMap(item => {
+                    const itemComps = item.competenciasTransversales || [];
+                    const itemCompsIds = item.competenciasTransversalesIds || [];
+                    
+                    return itemComps.map((comp, idx) => {
+                        let id, nombre;
+                        if (typeof comp === 'object' && comp !== null) {
+                            id = comp.id;
+                            nombre = comp.nombre;
+                        } else {
+                            id = itemCompsIds[idx];
+                            nombre = comp;
+                        }
+                        return { id, nombre };
+                    });
+                })
+                .filter(comp => comp.id && comp.nombre)
+                .map(comp => [comp.id, comp])
+        ).values()
+    );
+
     const filteredConvocatorias = convocatorias.filter(item => {
         const status = calculateStatus(item.fechaInicio, item.fechaLimite);
         
@@ -157,6 +209,26 @@ const Convocatorias = () => {
             );
             const hasSector = itemSectoresIds.some(id => String(id) === String(selectedSectorId));
             if (!hasSector) return false;
+        }
+
+        if (selectedCompTecnicaId) {
+            const itemCompsIds = item.competenciasTecnicasIds || (
+                Array.isArray(item.competenciasTecnicas) 
+                    ? item.competenciasTecnicas.map(comp => typeof comp === 'object' && comp !== null ? comp.id : null).filter(Boolean)
+                    : []
+            );
+            const hasComp = itemCompsIds.some(id => String(id) === String(selectedCompTecnicaId));
+            if (!hasComp) return false;
+        }
+
+        if (selectedCompTransversalId) {
+            const itemCompsIds = item.competenciasTransversalesIds || (
+                Array.isArray(item.competenciasTransversales) 
+                    ? item.competenciasTransversales.map(comp => typeof comp === 'object' && comp !== null ? comp.id : null).filter(Boolean)
+                    : []
+            );
+            const hasComp = itemCompsIds.some(id => String(id) === String(selectedCompTransversalId));
+            if (!hasComp) return false;
         }
 
         return true;
@@ -285,6 +357,52 @@ const Convocatorias = () => {
                                 {sectors.map(sec => (
                                     <option key={sec.id} value={sec.id} className="text-slate-700 bg-white font-semibold">
                                         {sec.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                                <ChevronDown className="w-4 h-4" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Filtro de Competencia Técnica */}
+                    <div className="flex flex-col relative">
+                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 px-1">Comp. Técnica</label>
+                        <div className="relative w-56">
+                            <select
+                                id="comp-tecnica-select"
+                                value={selectedCompTecnicaId}
+                                onChange={(e) => setSelectedCompTecnicaId(e.target.value)}
+                                className="block w-full pl-4 pr-10 py-2.5 text-sm font-bold text-slate-700 bg-slate-50 border border-slate-200 hover:border-primary/50 rounded-2xl transition-all appearance-none cursor-pointer outline-none"
+                            >
+                                <option value="" className="text-slate-700 bg-white font-bold">Todas</option>
+                                {compTecnicas.map(comp => (
+                                    <option key={comp.id} value={comp.id} className="text-slate-700 bg-white font-semibold">
+                                        {comp.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                                <ChevronDown className="w-4 h-4" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Filtro de Competencia Transversal */}
+                    <div className="flex flex-col relative">
+                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 px-1">Comp. Transversal</label>
+                        <div className="relative w-56">
+                            <select
+                                id="comp-transversal-select"
+                                value={selectedCompTransversalId}
+                                onChange={(e) => setSelectedCompTransversalId(e.target.value)}
+                                className="block w-full pl-4 pr-10 py-2.5 text-sm font-bold text-slate-700 bg-slate-50 border border-slate-200 hover:border-primary/50 rounded-2xl transition-all appearance-none cursor-pointer outline-none"
+                            >
+                                <option value="" className="text-slate-700 bg-white font-bold">Todas</option>
+                                {compTransversales.map(comp => (
+                                    <option key={comp.id} value={comp.id} className="text-slate-700 bg-white font-semibold">
+                                        {comp.nombre}
                                     </option>
                                 ))}
                             </select>
