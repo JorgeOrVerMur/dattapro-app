@@ -13,6 +13,7 @@ const Register = () => {
     });
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
@@ -22,21 +23,49 @@ const Register = () => {
             ...formData,
             [e.target.name]: e.target.value
         });
+        if (errors[e.target.name]) {
+            setErrors({
+                ...errors,
+                [e.target.name]: ''
+            });
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setErrorMessage('');
+        setErrors({});
 
-        if (!formData.correoInstitucional.endsWith('@unisimon.edu.co')) {
-            setErrorMessage('El correo debe pertenecer al dominio @unisimon.edu.co');
-            setIsLoading(false);
-            return;
+        const tempErrors = {};
+
+        if (!formData.nombres.trim()) {
+            tempErrors.nombres = 'Nombres es requerido';
+        }
+        if (!formData.apellidos.trim()) {
+            tempErrors.apellidos = 'Apellidos es requerido';
+        }
+        if (!formData.correoInstitucional.trim()) {
+            tempErrors.correoInstitucional = 'Correo institucional es requerido';
+        } else if (!formData.correoInstitucional.endsWith('@unisimon.edu.co')) {
+            tempErrors.correoInstitucional = 'El correo debe terminar en @unisimon.edu.co';
+        }
+        if (!formData.password) {
+            tempErrors.password = 'La contraseña es requerida';
+        } else {
+            const passwordRegex = /^(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!passwordRegex.test(formData.password)) {
+                tempErrors.password = 'La contraseña debe tener al menos 8 caracteres, incluyendo números y símbolos';
+            }
+        }
+        if (!formData.confirmPassword) {
+            tempErrors.confirmPassword = 'Confirmar contraseña es requerido';
+        } else if (formData.password !== formData.confirmPassword) {
+            tempErrors.confirmPassword = 'Las contraseñas no coinciden';
         }
 
-        if (formData.password !== formData.confirmPassword) {
-            setErrorMessage('Las contraseñas no coinciden.');
+        if (Object.keys(tempErrors).length > 0) {
+            setErrors(tempErrors);
             setIsLoading(false);
             return;
         }
@@ -104,31 +133,31 @@ const Register = () => {
 
                         {/* Form Section */}
                         <div className="space-y-6">
-                            <form className="space-y-6" onSubmit={handleSubmit}>
+                            <form className="space-y-6" onSubmit={handleSubmit} noValidate>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="flex flex-col gap-2">
                                         <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Nombres</label>
                                         <input
-                                            className="w-full px-5 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400"
+                                            className={`w-full px-5 py-4 rounded-2xl border ${errors.nombres ? 'border-red-500 focus:ring-red-500/10 focus:border-red-500' : 'border-slate-100 dark:border-slate-800'} bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400`}
                                             placeholder="Ej. Marie"
                                             type="text"
-                                            name="nombres"  // Antes era nombre
+                                            name="nombres"
                                             value={formData.nombres}
                                             onChange={handleChange}
-                                            required
                                         />
+                                        {errors.nombres && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.nombres}</span>}
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Apellidos</label>
                                         <input
-                                            className="w-full px-5 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400"
+                                            className={`w-full px-5 py-4 rounded-2xl border ${errors.apellidos ? 'border-red-500 focus:ring-red-500/10 focus:border-red-500' : 'border-slate-100 dark:border-slate-800'} bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400`}
                                             placeholder="Ej. Curie"
                                             type="text"
-                                            name="apellidos" // Antes era apellido
+                                            name="apellidos"
                                             value={formData.apellidos}
                                             onChange={handleChange}
-                                            required
                                         />
+                                        {errors.apellidos && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.apellidos}</span>}
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-2">
@@ -141,17 +170,23 @@ const Register = () => {
                                             </svg>
                                         </div>
                                         <input
-                                            className="w-full pl-12 pr-5 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400"
+                                            className={`w-full pl-12 pr-5 py-4 rounded-2xl border ${errors.correoInstitucional ? 'border-red-500 focus:ring-red-500/10 focus:border-red-500' : 'border-slate-100 dark:border-slate-800'} bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400`}
                                             placeholder="nombre@unisimon.edu.co"
                                             type="email"
                                             name="correoInstitucional"
                                             value={formData.correoInstitucional}
                                             onChange={handleChange}
-                                            pattern=".+@unisimon\.edu\.co"
-                                            title="El correo debe terminar en @unisimon.edu.co"
-                                            required
                                         />
                                     </div>
+                                    {errors.correoInstitucional && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.correoInstitucional}</span>}
+                                    <p className="text-xs font-medium text-red-500 ml-1 mt-1 flex items-center gap-1">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 shrink-0">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <line x1="12" y1="8" x2="12" y2="12" />
+                                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                                        </svg>
+                                        Solo correos institucionales de la Universidad Simón Bolívar (@unisimon.edu.co)
+                                    </p>
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Contraseña</label>
@@ -163,13 +198,12 @@ const Register = () => {
                                             </svg>
                                         </div>
                                         <input
-                                            className="w-full pl-12 pr-12 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400"
+                                            className={`w-full pl-12 pr-12 py-4 rounded-2xl border ${errors.password ? 'border-red-500 focus:ring-red-500/10 focus:border-red-500' : 'border-slate-100 dark:border-slate-800'} bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400`}
                                             placeholder="Crea una contraseña segura"
                                             type={showPassword ? 'text' : 'password'}
                                             name="password"
                                             value={formData.password}
                                             onChange={handleChange}
-                                            required
                                         />
                                         <button
                                             type="button"
@@ -189,6 +223,7 @@ const Register = () => {
                                             )}
                                         </button>
                                     </div>
+                                    {errors.password && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.password}</span>}
                                     <p className="text-xs text-slate-400 ml-1 mt-1">Al menos 8 caracteres, incluyendo números y símbolos.</p>
                                 </div>
                                 <div className="flex flex-col gap-2">
@@ -201,13 +236,12 @@ const Register = () => {
                                             </svg>
                                         </div>
                                         <input
-                                            className="w-full pl-12 pr-12 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400"
+                                            className={`w-full pl-12 pr-12 py-4 rounded-2xl border ${errors.confirmPassword ? 'border-red-500 focus:ring-red-500/10 focus:border-red-500' : 'border-slate-100 dark:border-slate-800'} bg-slate-50 dark:bg-slate-950 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400`}
                                             placeholder="Confirma tu contraseña"
                                             type={showConfirmPassword ? 'text' : 'password'}
                                             name="confirmPassword"
                                             value={formData.confirmPassword}
                                             onChange={handleChange}
-                                            required
                                         />
                                         <button
                                             type="button"
@@ -227,6 +261,7 @@ const Register = () => {
                                             )}
                                         </button>
                                     </div>
+                                    {errors.confirmPassword && <span className="text-red-500 text-[11px] font-bold uppercase block ml-1">{errors.confirmPassword}</span>}
                                 </div>
 
                                 {/* Autorización de Datos (Pregunta 2) */}
